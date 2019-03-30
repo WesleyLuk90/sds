@@ -1,5 +1,7 @@
 import * as express from "express";
+import * as graphqlHTTP from "express-graphql";
 import { RequestHandler } from "express-serve-static-core";
+import { Schema } from "../query/Schema";
 
 export class Server {
     app: express.Express;
@@ -7,6 +9,23 @@ export class Server {
 
     constructor() {
         this.app = express();
+
+        this.app.use(
+            "/api/query",
+            graphqlHTTP({
+                schema: Schema,
+                rootValue: {
+                    documentTypes: async () => [
+                        { id: "a", name: "A" },
+                        { id: "b", name: "B" }
+                    ],
+                    err: async () => {
+                        throw new Error("bar");
+                    }
+                },
+                graphiql: true
+            })
+        );
     }
 
     addMiddleware(middleware: RequestHandler) {
