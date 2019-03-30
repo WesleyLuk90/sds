@@ -1,3 +1,8 @@
+const webpack = require("webpack");
 const base = require("./webpack.config.js");
 
-module.exports = { ...base, mode: "development" };
+base.mode = "development";
+base.plugins.push(new webpack.HotModuleReplacementPlugin());
+base.entry.unshift("webpack-hot-middleware/client");
+
+module.exports = base;
