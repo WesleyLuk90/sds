@@ -31,8 +31,26 @@ export class Navigation extends React.Component {
                     />
                 </NavbarGroup>
                 <NavbarGroup align={Alignment.RIGHT}>
+                    <Link to="/system/document-types">
+                        <Button
+                            className={Classes.MINIMAL}
+                            icon="document"
+                            title="Document Types"
+                        />
+                    </Link>
                     <Link to="/system/configuration">
-                        <Button className={Classes.MINIMAL} icon="wrench" />
+                        <Button
+                            className={Classes.MINIMAL}
+                            icon="wrench"
+                            title="Administration"
+                        />
+                    </Link>
+                    <Link to="/profile">
+                        <Button
+                            className={Classes.MINIMAL}
+                            icon="user"
+                            title="Profile"
+                        />
                     </Link>
                 </NavbarGroup>
             </Navbar>
