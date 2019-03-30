@@ -1,8 +1,26 @@
 {
-  "name": "sds",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:WesleyLuk90/sds.git",
-  "author": "Wesley Luk <wesleyluk@gmail.com>",
-  "license": "MIT"
+    "name": "sds",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:WesleyLuk90/sds.git",
+    "author": "Wesley Luk <wesleyluk@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "build": "yarn build:client",
+        "build:client": "webpack --config client/webpack.config.js"
+    },
+    "dependencies": {
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6"
+    },
+    "devDependencies": {
+        "@types/react": "^16.8.10",
+        "@types/react-dom": "^16.8.3",
+        "awesome-typescript-loader": "^5.2.1",
+        "html-webpack-plugin": "^3.2.0",
+        "source-map-loader": "^0.2.4",
+        "typescript": "^3.4.1",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.3.0"
+    }
 }
