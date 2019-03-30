@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as styles from "./Application.css";
 
 interface Props {
     compiler: string;
@@ -8,7 +9,7 @@ interface Props {
 export class Application extends React.Component<Props, {}> {
     render() {
         return (
-            <h1>
+            <h1 className={styles.nav}>
                 Application from {this.props.compiler} and{" "}
                 {this.props.framework}!
             </h1>

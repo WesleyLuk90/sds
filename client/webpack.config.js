@@ -24,7 +24,23 @@ module.exports = {
                     configFileName: path.join(__dirname, "tsconfig.json")
                 }
             },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            {
+                test: /\.css$/,
+                loader: "style-loader"
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    "css-modules-typescript-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true
+                        }
+                    }
+                ]
+            }
         ]
     },
 
