@@ -26,17 +26,31 @@ module.exports = {
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
-                test: /\.css$/,
-                loader: "style-loader"
+                test: /globals\.css$/,
+                use: ["style-loader", "css-loader"]
             },
             {
                 test: /\.css$/,
+                exclude: [path.join(__dirname, "src/app/globals.css")],
                 use: [
+                    "style-loader",
                     "css-modules-typescript-loader",
                     {
                         loader: "css-loader",
                         options: {
                             modules: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            name: "[name].[ext]",
+                            outputPath: "fonts/"
                         }
                     }
                 ]

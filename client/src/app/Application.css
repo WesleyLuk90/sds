@@ -1,3 +1,13 @@
 :global(body) {
+    margin: 0;
+    color: #182026;
     font-family: Helvetica, Arial, Sans-Serif;
+}
+
+:global(html, body, .application-container) {
+    height: 100%;
+    position: relative;
+}
+
+:local(.application) {
 }

@@ -1,17 +1,37 @@
 import * as React from "react";
+import * as styles from "./Application.css";
+import "./globals.css";
+import {
+    Navbar,
+    NavbarGroup,
+    NavbarHeading,
+    Alignment,
+    NavbarDivider,
+    Button,
+    Classes
+} from "@blueprintjs/core";
 
-interface Props {
-    compiler: string;
-    framework: string;
-}
-
-export class Application extends React.Component<Props, {}> {
+export class Application extends React.Component {
     render() {
         return (
-            <h1>
-                Application from {this.props.compiler} and{" "}
-                {this.props.framework}!
-            </h1>
+            <div className={styles.application}>
+                <Navbar>
+                    <NavbarGroup align={Alignment.LEFT}>
+                        <NavbarHeading>Blueprint</NavbarHeading>
+                        <NavbarDivider />
+                        <Button
+                            className={Classes.MINIMAL}
+                            icon="home"
+                            text="Home"
+                        />
+                        <Button
+                            className={Classes.MINIMAL}
+                            icon="document"
+                            text="Files"
+                        />
+                    </NavbarGroup>
+                </Navbar>
+            </div>
         );
     }
 }
