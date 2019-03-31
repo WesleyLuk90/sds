@@ -11,10 +11,12 @@ export class Content extends React.Component {
                 <Route path="/" exact component={HomePage} />
                 <Route
                     path="/system/document-types"
+                    exact
                     component={DocumentTypesPage}
                 />
                 <Route
                     path="/system/configuration"
+                    exact
                     component={ConfigurationPage}
                 />
             </Switch>

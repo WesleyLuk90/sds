@@ -1,5 +1,7 @@
 import * as React from "react";
+import { Actions } from "../components/Actions";
 import { Layout } from "../components/Layout";
+import { loader } from "../components/Loader";
 import { Table, TableColumn } from "../components/Table";
 import {
     DocumentType,
@@ -7,7 +9,7 @@ import {
 } from "./requests/DocumentTypeRequests";
 
 interface State {
-    documentTypes: DocumentType[];
+    documentTypes: DocumentType[] | null;
 }
 
 const COLUMNS = [
@@ -16,7 +18,7 @@ const COLUMNS = [
 
 export class DocumentTypesPage extends React.Component<{}, State> {
     state: State = {
-        documentTypes: []
+        documentTypes: null
     };
 
     async componentDidMount() {
@@ -26,11 +28,22 @@ export class DocumentTypesPage extends React.Component<{}, State> {
     render() {
         return (
             <Layout title="Document Types">
-                <Table
-                    rows={this.state.documentTypes}
-                    rowKey={t => t.id}
-                    columns={COLUMNS}
+                <Actions
+                    actions={[
+                        {
+                            icon: "plus",
+                            label: "New Document Type",
+                            path: "/system/document-types/create"
+                        }
+                    ]}
                 />
+                {loader(this.state.documentTypes, documentTypes => (
+                    <Table
+                        rows={documentTypes}
+                        rowKey={t => t.id}
+                        columns={COLUMNS}
+                    />
+                ))}
             </Layout>
         );
     }
