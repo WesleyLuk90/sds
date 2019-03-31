@@ -13,4 +13,7 @@ if (!process.argv.includes("--no-webpack")) {
     );
     server.addMiddleware(hotMiddleware(compiler));
 }
-server.start();
+server.start().catch(e => {
+    console.error(e);
+    process.exit(1);
+});

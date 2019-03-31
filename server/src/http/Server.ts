@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as graphqlHTTP from "express-graphql";
 import { RequestHandler } from "express-serve-static-core";
-import { Schema } from "../query/Schema";
+import { QueryRoot, Schema } from "../query/Schema";
 
 export class Server {
     app: express.Express;
@@ -9,20 +9,15 @@ export class Server {
 
     constructor() {
         this.app = express();
+    }
 
+    async configureQuery() {
+        const queryRoot = await QueryRoot.create();
         this.app.use(
             "/api/query",
             graphqlHTTP({
                 schema: Schema,
-                rootValue: {
-                    documentTypes: async () => [
-                        { id: "a", name: "A" },
-                        { id: "b", name: "B" }
-                    ],
-                    err: async () => {
-                        throw new Error("bar");
-                    }
-                },
+                rootValue: queryRoot,
                 graphiql: true
             })
         );
@@ -32,7 +27,8 @@ export class Server {
         this.app.use(middleware);
     }
 
-    start() {
+    async start() {
+        await this.configureQuery();
         this.app.listen(this.port, () =>
             console.log(`Example app listening on port ${this.port}!`)
         );

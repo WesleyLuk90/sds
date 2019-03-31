@@ -4,7 +4,7 @@ type DocumentType {
     name: String!,
 }`;
 
-export interface Document {
+export interface DocumentType {
     id: string;
     name: string;
 }
