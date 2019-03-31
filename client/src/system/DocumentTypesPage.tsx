@@ -1,8 +1,24 @@
 import { HTMLTable } from "@blueprintjs/core";
 import * as React from "react";
 import { Layout } from "../components/Layout";
+import {
+    DocumentType,
+    DocumentTypeRequests
+} from "./requests/DocumentTypeRequests";
 
-export class DocumentTypesPage extends React.Component {
+interface State {
+    documentTypes: DocumentType[];
+}
+
+export class DocumentTypesPage extends React.Component<{}, State> {
+    state: State = {
+        documentTypes: []
+    };
+
+    async componentDidMount() {
+        this.setState({ documentTypes: await DocumentTypeRequests.list() });
+    }
+
     render() {
         return (
             <Layout title="Document Types">
