@@ -8,10 +8,11 @@
     "scripts": {
         "dev": "opn http://localhost:3000 && ts-node server/src/dev-index.ts",
         "dev:server": "ts-node server/src/dev-index.ts --no-webpack",
-        "build": "yarn build:client",
-        "build:client": "webpack --config client/webpack.config.js",
+        "build": "yarn generate && yarn build:client && yarn build:server && yarn test",
+        "build:client": "tsc -p client/tsconfig.json && webpack --config client/webpack.config.js",
         "build:server": "tsc -p server/tsconfig.json",
         "start:server": "node server/dist/index.js",
+        "test": "yarn test:server",
         "test:server": "jest -c server/jest.config.js",
         "generate": "yarn generate:schema && yarn generate:typedefs",
         "generate:schema": "ts-node server/src/makeSchema.ts",
