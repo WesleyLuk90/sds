@@ -17,9 +17,11 @@ type Mutation {
     updateDocumentType(documentType: InputDocumentType): DocumentType
 }`;
 
-export const Schema = buildSchema(
-    [QuerySchema, MutationSchema, DocumentSchema].join("\n")
+export const RawSchema = [QuerySchema, MutationSchema, DocumentSchema].join(
+    "\n"
 );
+
+export const Schema = buildSchema(RawSchema);
 
 export class QueryRoot {
     static async create() {
