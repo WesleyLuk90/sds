@@ -1,7 +1,8 @@
 module.exports = {
     client: {
-        includes: ["./client/src/**/*.ts", "./client/src/**/*.tsx"],
+        includes: ["./client/src/**/*.{ts,tsx}"],
         service: {
+            name: "sds",
             localSchemaFile: "./client/graphql-schema.json"
         }
     }

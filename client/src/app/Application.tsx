@@ -1,8 +1,8 @@
 import * as React from "react";
 import { HashRouter } from "react-router-dom";
-import { Content } from "./Content";
 import "./globals.css";
 import { Navigation } from "./Navigation";
+import { Routes } from "./Routes";
 
 export class Application extends React.Component {
     render() {
@@ -10,7 +10,7 @@ export class Application extends React.Component {
             <div>
                 <HashRouter>
                     <Navigation />
-                    <Content />
+                    <Routes />
                 </HashRouter>
             </div>
         );

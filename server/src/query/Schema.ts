@@ -13,8 +13,8 @@ type Query {
 
 const MutationSchema = `
 type Mutation {
-    createDocumentType(documentType: InputDocumentType): DocumentType
-    updateDocumentType(documentType: InputDocumentType): DocumentType
+    createDocumentType(documentType: InputDocumentType): DocumentType!
+    updateDocumentType(documentType: InputDocumentType): DocumentType!
 }`;
 
 export const RawSchema = [QuerySchema, MutationSchema, DocumentSchema].join(

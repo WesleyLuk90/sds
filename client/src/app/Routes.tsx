@@ -1,24 +1,23 @@
 import * as React from "react";
 import { Route, Switch } from "react-router";
 import { ConfigurationPage } from "../system/ConfigurationPage";
-import { DocumentTypesPage } from "../system/DocumentTypesPage";
+import { DocumentTypesRoutes } from "../system/DocumentTypesRoutes";
 import { HomePage } from "./HomePage";
 
-export class Content extends React.Component {
+export class Routes extends React.Component {
     render() {
         return (
             <Switch>
-                <Route path="/" exact component={HomePage} />
                 <Route
                     path="/system/document-types"
-                    exact
-                    component={DocumentTypesPage}
+                    component={DocumentTypesRoutes}
                 />
                 <Route
                     path="/system/configuration"
                     exact
                     component={ConfigurationPage}
                 />
+                <Route path="/" exact component={HomePage} />
             </Switch>
         );
     }
