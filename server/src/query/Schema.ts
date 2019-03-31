@@ -1,34 +1,47 @@
 import { buildSchema } from "graphql";
+import {
+    CollectionManager,
+    DOCUMENT_TYPES_COLLECTION
+} from "../storage/CollectionManager";
 import { Storage } from "../storage/Storage";
 import { DocumentSchema, DocumentType } from "./DocumentType";
 
-const RootQuery = `
+const QuerySchema = `
 type Query {
     documentTypes: [DocumentType!]!
-    err: [DocumentType!]!
 }`;
 
-export const Schema = buildSchema([RootQuery, DocumentSchema].join("\n"));
+const MutationSchema = `
+type Mutation {
+    createDocumentType(documentType: InputDocumentType): DocumentType
+    updateDocumentType(documentType: InputDocumentType): DocumentType
+}`;
+
+export const Schema = buildSchema(
+    [QuerySchema, MutationSchema, DocumentSchema].join("\n")
+);
 
 export class QueryRoot {
     static async create() {
-        return new QueryRoot(await Storage.create());
+        const storage = await Storage.create();
+        const collectionManager = await CollectionManager.create(storage);
+        return new QueryRoot(storage, collectionManager);
     }
 
-    constructor(private storage: Storage) {}
+    constructor(
+        private storage: Storage,
+        private collectionManager: CollectionManager
+    ) {}
 
     async documentTypes(): Promise<DocumentType[]> {
-        try {
-            // await this.storage.createDocumentType({
-            //     id: "people",
-            //     name: "People"
-            // });
-            const val = await this.storage.documentTypes();
-            console.log(val);
-            return val;
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
+        return this.storage.search<DocumentType>(DOCUMENT_TYPES_COLLECTION);
+    }
+
+    async createDocumentType(args: { documentType: DocumentType }) {
+        return this.collectionManager.create(args.documentType);
+    }
+
+    async updateDocumentType(args: { documentType: DocumentType }) {
+        return this.collectionManager.update(args.documentType);
     }
 }

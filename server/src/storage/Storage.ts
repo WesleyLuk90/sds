@@ -1,14 +1,8 @@
 import { Client } from "@elastic/elasticsearch";
 import { Collection } from "./Collection";
 
-type DocumentValue = PartialDocument | string | number;
-
-interface PartialDocument {
-    [key: string]: DocumentValue | DocumentValue[];
-}
-
-export interface Document extends PartialDocument {
-    id: string | null;
+export interface Document {
+    id?: string;
 }
 
 interface Options {
@@ -18,6 +12,17 @@ interface Options {
 const DEFAULT_OPTIONS: Options = {
     block: false
 };
+
+function mapError(
+    e: { body?: { error?: { type?: string } } },
+    type: string,
+    newError: Error
+) {
+    if (e.body && e.body.error && e.body.error.type === type) {
+        throw newError;
+    }
+    throw e;
+}
 
 export class Storage {
     static async create() {
@@ -65,15 +70,19 @@ export class Storage {
         document: Document,
         options: Options = DEFAULT_OPTIONS
     ): Promise<Document> {
-        const request = await this.client.index({
-            index: collection.getId(),
-            id: document.id,
-            type: "_doc",
-            body: document,
-            refresh: options.block ? "wait_for" : "false"
-        });
-        document.id = request.body._id;
-        return document;
+        try {
+            const request = await this.client.index({
+                index: collection.getId(),
+                id: document.id,
+                type: "_doc",
+                body: document,
+                refresh: options.block ? "wait_for" : "false"
+            });
+            document.id = request.body._id;
+            return document;
+        } catch (e) {
+            mapError(e, "index_not_found_exception", new Error("Duplicate id"));
+        }
     }
 
     async update(
@@ -92,7 +101,7 @@ export class Storage {
         });
     }
 
-    async search(collection: Collection): Promise<Document[]> {
+    async search<T extends Document>(collection: Collection): Promise<T[]> {
         const results = await this.client.search({
             index: collection.getId(),
             type: "_doc"

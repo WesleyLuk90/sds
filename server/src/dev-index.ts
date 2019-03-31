@@ -3,17 +3,21 @@ import * as middleware from "webpack-dev-middleware";
 import * as hotMiddleware from "webpack-hot-middleware";
 import { Server } from "./http/Server";
 
-const server = new Server();
-if (!process.argv.includes("--no-webpack")) {
-    const compiler = webpack(require("../../client/webpack.dev.config.js"));
-    server.addMiddleware(
-        middleware(compiler, {
-            publicPath: "/"
-        })
-    );
-    server.addMiddleware(hotMiddleware(compiler));
+async function main() {
+    const server = await Server.create();
+    if (!process.argv.includes("--no-webpack")) {
+        const compiler = webpack(require("../../client/webpack.dev.config.js"));
+        server.addMiddleware(
+            middleware(compiler, {
+                publicPath: "/"
+            })
+        );
+        server.addMiddleware(hotMiddleware(compiler));
+    }
+    server.start();
 }
-server.start().catch(e => {
+
+main().catch(e => {
     console.error(e);
     process.exit(1);
 });

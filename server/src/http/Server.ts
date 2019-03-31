@@ -7,18 +7,28 @@ export class Server {
     app: express.Express;
     port = 3000;
 
-    constructor() {
-        this.app = express();
+    static async create(): Promise<Server> {
+        const queryRoot = await QueryRoot.create();
+        return new Server(queryRoot);
     }
 
-    async configureQuery() {
-        const queryRoot = await QueryRoot.create();
+    constructor(private queryRoot: QueryRoot) {
+        this.app = express();
         this.app.use(
             "/api/query",
             graphqlHTTP({
                 schema: Schema,
                 rootValue: queryRoot,
-                graphiql: true
+                graphiql: true,
+                formatError: error => {
+                    console.error(error);
+                    return {
+                        message: error.message,
+                        locations: error.locations,
+                        stack: error.stack ? error.stack.split("\n") : [],
+                        path: error.path
+                    };
+                }
             })
         );
     }
@@ -28,7 +38,6 @@ export class Server {
     }
 
     async start() {
-        await this.configureQuery();
         this.app.listen(this.port, () =>
             console.log(`Example app listening on port ${this.port}!`)
         );

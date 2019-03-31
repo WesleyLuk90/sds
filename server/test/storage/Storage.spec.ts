@@ -1,11 +1,15 @@
-import { Collection, Field, FieldType } from "../../src/storage/Collection";
+import {
+    Collection,
+    CollectionField,
+    FieldType
+} from "../../src/storage/Collection";
 import { Document, Storage } from "../../src/storage/Storage";
 
 describe.skip("Storage", () => {
     const TEST_COLLECTION_TYPE: any = "test";
     const testCollection = new Collection(TEST_COLLECTION_TYPE, "test-foo")
-        .addField(new Field(FieldType.KEYWORD, "first"))
-        .addField(new Field(FieldType.KEYWORD, "second"));
+        .addField(new CollectionField(FieldType.KEYWORD, "first"))
+        .addField(new CollectionField(FieldType.KEYWORD, "second"));
     let storage: Storage;
 
     beforeEach(async () => {
@@ -33,8 +37,8 @@ describe.skip("Storage", () => {
 
     it("should update schema", async () => {
         const updated = new Collection(TEST_COLLECTION_TYPE, "test-foo")
-            .addField(new Field(FieldType.KEYWORD, "first"))
-            .addField(new Field(FieldType.KEYWORD, "third"));
+            .addField(new CollectionField(FieldType.KEYWORD, "first"))
+            .addField(new CollectionField(FieldType.KEYWORD, "third"));
         await storage.updateCollection(updated);
 
         const updatedMappings = await storage.client.indices.getMapping({
@@ -48,10 +52,10 @@ describe.skip("Storage", () => {
     });
 
     it("should create document with generated id", async () => {
-        const document: Document = {
+        const document = {
             id: null,
             first: "hello"
-        };
+        } as Document;
         const created = await storage.create(testCollection, document, {
             block: true
         });
@@ -64,8 +68,23 @@ describe.skip("Storage", () => {
         ]);
     });
 
+    it("should fail on duplicate", async () => {
+        const document = {
+            id: "foo",
+            first: "hello"
+        } as Document;
+        await storage.create(testCollection, document, {
+            block: true
+        });
+        expect(
+            storage.create(testCollection, document, {
+                block: true
+            })
+        ).rejects.toThrowError("Duplicate id");
+    });
+
     it("should update document", async () => {
-        const document: Document = {
+        const document = {
             id: "foo",
             first: "hello"
         };
