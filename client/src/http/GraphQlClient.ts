@@ -5,10 +5,13 @@ export function gql(strings: TemplateStringsArray): string {
 }
 
 export class GraphQlClient {
-    static async query<R = {}, A = {}>(query: string, args?: A): Promise<R> {
+    static async query<R = {}, A = {}>(
+        query: string,
+        variables?: A
+    ): Promise<R> {
         const response = await axios.post("/api/query", {
             query: query,
-            args: args
+            variables: variables
         });
         return response.data.data;
     }

@@ -6,6 +6,7 @@ import { Table, TableColumn } from "../components/Table";
 import { InputDocumentType, InputField } from "../__generated__/globalTypes";
 import { FieldEditor } from "./components/FieldEditor";
 import { DocumentTypeUpdater } from "./DocumentTypeUpdater";
+import { DocumentTypeRequests } from "./requests/DocumentTypeRequests";
 
 interface State {
     documentType: InputDocumentType;
@@ -59,6 +60,12 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
         this.updateDocument(d => DocumentTypeUpdater.setName(d, name));
     };
 
+    onCreate = async () => {
+        const documentType = await DocumentTypeRequests.create(
+            this.state.documentType
+        );
+    };
+
     render() {
         return (
             <Layout title="Create a new Document Type">
@@ -80,6 +87,7 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
                     rowKey={(r, i) => i}
                     columns={this.COLUMNS}
                 />
+                <Button onClick={this.onCreate} text="Create" />
             </Layout>
         );
     }

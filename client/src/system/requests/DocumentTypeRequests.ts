@@ -35,6 +35,6 @@ export class DocumentTypeRequests {
         const args: CreateDocumentTypeVariables = {
             documentType
         };
-        await GraphQlClient.query(list, args);
+        await GraphQlClient.query(create, args);
     }
 }
