@@ -1,6 +1,5 @@
 import * as React from "react";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";
-import { TextInput } from "../../components/forms/TextInput";
 import { InputField } from "../../__generated__/globalTypes";
 import { FieldTypeSelector } from "./FieldTypeSelector";
 
@@ -14,19 +13,13 @@ export class FieldEditor extends React.Component<Props> {
         const { id, name, type } = this.props.field;
         return (
             <div>
-                <TextInput
+                <DerivedIdField
                     label="Field Name"
                     value={name}
-                    onChange={name =>
-                        this.props.onChange({ ...this.props.field, name })
-                    }
-                />
-                <DerivedIdField
-                    label="Field ID"
-                    value={id}
-                    derivedFrom={name}
-                    onChange={id =>
-                        this.props.onChange({ ...this.props.field, id })
+                    derivedLabel="Field ID"
+                    derivedValue={id}
+                    onChange={(name, id) =>
+                        this.props.onChange({ ...this.props.field, name, id })
                     }
                 />
                 <FieldTypeSelector

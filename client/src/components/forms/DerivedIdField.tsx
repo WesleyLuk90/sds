@@ -1,56 +1,79 @@
 import { FormGroup, InputGroup, Switch } from "@blueprintjs/core";
 import * as React from "react";
-import { TextInputProps } from "./TextInput";
 
-interface Props extends TextInputProps {
-    derivedFrom: string;
+interface Props {
+    label: string;
+    derivedLabel: string;
+    value: string;
+    derivedValue: string;
+    onChange: (value: string, derivedValue: string) => void;
 }
 
 interface State {
-    derived: boolean;
+    auto: boolean;
 }
 
 export class DerivedIdField extends React.Component<Props, State> {
-    id = Math.random().toString();
+    valueId = Math.random().toString();
+    derivedValueId = Math.random().toString();
+
     state: State = {
-        derived:
-            this.props.value === "" || this.getDerived() === this.props.value
+        auto:
+            this.props.derivedValue === "" ||
+            this.deriveValue(this.props.value) === this.props.derivedValue
     };
 
-    componentDidUpdate() {
-        if (this.state.derived && this.getDerived() !== this.props.value) {
-            this.props.onChange(this.getDerived());
-        }
-    }
-
-    getDerived() {
-        return this.props.derivedFrom
+    deriveValue(value: string) {
+        return value
             .toLowerCase()
             .replace(/[^a-z0-9-]/g, "-")
             .replace(/--*/, "-");
     }
 
+    onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (this.state.auto) {
+            this.props.onChange(
+                e.target.value,
+                this.deriveValue(e.target.value)
+            );
+        } else {
+            this.props.onChange(e.target.value, this.props.derivedValue);
+        }
+    };
+
+    onChangeDerived = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({ auto: false });
+        this.props.onChange(this.props.value, e.target.value);
+    };
+
     render() {
         return (
-            <FormGroup label={this.props.label} labelFor={this.id}>
-                <InputGroup
-                    id={this.id}
-                    disabled={this.props.disabled}
-                    placeholder={this.props.placeholder}
-                    value={this.props.value}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        this.setState({ derived: false });
-                        this.props.onChange(e.target.value);
-                    }}
-                />
-                <Switch
-                    checked={this.state.derived}
-                    label="Automatic"
-                    onChange={() =>
-                        this.setState({ derived: !this.state.derived })
-                    }
-                />
-            </FormGroup>
+            <div>
+                <FormGroup label={this.props.label} labelFor={this.valueId}>
+                    <InputGroup
+                        id={this.valueId}
+                        value={this.props.value}
+                        onChange={this.onChange}
+                    />
+                </FormGroup>
+                <FormGroup
+                    label={this.props.derivedLabel}
+                    labelFor={this.valueId}
+                >
+                    <InputGroup
+                        id={this.derivedValueId}
+                        value={this.props.derivedValue}
+                        onChange={this.onChangeDerived}
+                    />
+                    <Switch
+                        checked={this.state.auto}
+                        label="Automatic"
+                        onChange={() =>
+                            this.setState({ auto: !this.state.auto })
+                        }
+                    />
+                </FormGroup>
+            </div>
         );
     }
 }

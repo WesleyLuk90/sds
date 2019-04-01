@@ -1,7 +1,6 @@
 import { Button } from "@blueprintjs/core";
 import * as React from "react";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";
-import { TextInput } from "../../components/forms/TextInput";
 import { Table, TableColumn } from "../../components/Table";
 import { InputDocumentType, InputField } from "../../__generated__/globalTypes";
 import { DocumentTypeUpdater } from "../DocumentTypeUpdater";
@@ -44,30 +43,20 @@ export class DocumentTypeEditor extends React.Component<Props> {
         this.updateDocument(d => DocumentTypeUpdater.addField(d));
     }
 
-    onChangeId = (id: string) => {
-        this.updateDocument(d => DocumentTypeUpdater.setId(d, id));
-    };
-
-    onChangeName = (name: string) => {
-        this.updateDocument(d => DocumentTypeUpdater.setName(d, name));
+    onChangeNameId = (name: string, id: string) => {
+        this.updateDocument(d => DocumentTypeUpdater.setNameId(d, name, id));
     };
 
     render() {
         const { name, id, fields } = this.props.documentType;
         return (
             <div>
-                <TextInput
-                    label="Name"
-                    placeholder="Name..."
-                    value={name}
-                    onChange={this.onChangeName}
-                />
                 <DerivedIdField
-                    label="ID"
-                    placeholder="ID..."
-                    derivedFrom={name}
-                    value={id}
-                    onChange={this.onChangeId}
+                    label="Name"
+                    value={name}
+                    derivedLabel="ID"
+                    derivedValue={id}
+                    onChange={this.onChangeNameId}
                 />
                 <h3>Fields</h3>
                 <Table

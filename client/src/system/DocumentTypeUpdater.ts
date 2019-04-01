@@ -5,18 +5,12 @@ import {
 } from "../__generated__/globalTypes";
 
 export class DocumentTypeUpdater {
-    static setId(
+    static setNameId(
         documentType: InputDocumentType,
+        name: string,
         id: string
     ): InputDocumentType {
-        return { ...documentType, id };
-    }
-
-    static setName(
-        documentType: InputDocumentType,
-        name: string
-    ): InputDocumentType {
-        return { ...documentType, name };
+        return { ...documentType, name, id };
     }
 
     static addField(documentType: InputDocumentType): InputDocumentType {
@@ -41,7 +35,7 @@ export class DocumentTypeUpdater {
             if (f === oldField) {
                 return newField;
             } else {
-                return oldField;
+                return f;
             }
         });
         return {
