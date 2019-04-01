@@ -3,13 +3,13 @@ export enum CollectionType {
     USER = "user"
 }
 
-export enum FieldType {
+export enum CollectionFieldType {
     KEYWORD = "keyword",
     TEXT = "text"
 }
 
 export class CollectionField {
-    constructor(readonly type: FieldType, readonly id: string) {
+    constructor(readonly type: CollectionFieldType, readonly id: string) {
         if (!ID_REGEX.test(id)) {
             throw new Error(`Invalid field id ${id}`);
         }

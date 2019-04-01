@@ -1,19 +1,29 @@
-import { DocumentType, Field } from "../query/DocumentType";
+import { DocumentType, Field, FieldType } from "../query/DocumentType";
 import {
     Collection,
     CollectionField,
-    CollectionType,
-    FieldType
+    CollectionFieldType,
+    CollectionType
 } from "./Collection";
 import { Storage } from "./Storage";
 
 export const DOCUMENT_TYPES_COLLECTION = new Collection(
     CollectionType.SYSTEM,
     "document-types"
-).addField(new CollectionField(FieldType.TEXT, "name"));
+).addField(new CollectionField(CollectionFieldType.TEXT, "name"));
+
+function convertFieldType(fieldType: FieldType): CollectionFieldType {
+    switch (fieldType) {
+        case FieldType.ID:
+            return CollectionFieldType.KEYWORD;
+        case FieldType.TEXT:
+            return CollectionFieldType.TEXT;
+    }
+    throw new Error(`Invalid field type ${fieldType}`);
+}
 
 function toCollectionField(field: Field): CollectionField {
-    return new CollectionField(field.type, field.id);
+    return new CollectionField(convertFieldType(field.type), field.id);
 }
 
 function toCollection(documentType: DocumentType): Collection {

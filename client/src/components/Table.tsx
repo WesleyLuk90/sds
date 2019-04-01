@@ -3,7 +3,7 @@ import * as React from "react";
 
 interface Props<R> {
     rows: R[];
-    rowKey: (row: R) => string;
+    rowKey: (row: R, index: number) => string | number;
     columns: TableColumn<R>[];
 }
 
@@ -26,7 +26,7 @@ export class TableColumn<R> {
 export class Table<R> extends React.Component<Props<R>> {
     render() {
         return (
-            <HTMLTable style={{ width: "100%" }}>
+            <HTMLTable style={{ width: "100%" }} bordered>
                 <thead>
                     <tr>
                         {this.props.columns.map(col => (
@@ -35,8 +35,8 @@ export class Table<R> extends React.Component<Props<R>> {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.rows.map(row => (
-                        <tr key={this.props.rowKey(row)}>
+                    {this.props.rows.map((row, index) => (
+                        <tr key={this.props.rowKey(row, index)}>
                             {this.props.columns.map(col => (
                                 <td key={col.id}>{col.formatter(row)}</td>
                             ))}

@@ -1,5 +1,3 @@
-import { FieldType } from "../storage/Collection";
-
 export const DocumentSchema = `
 input InputDocumentType {
     id: ID!
@@ -26,8 +24,8 @@ type Field {
 }
 
 enum FieldType {
-    keyword
     text
+    id
 }`;
 
 export interface Field {
@@ -40,4 +38,9 @@ export interface DocumentType {
     id: string;
     name: string;
     fields: Field[];
+}
+
+export enum FieldType {
+    TEXT = "text",
+    ID = "id"
 }
