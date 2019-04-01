@@ -1,5 +1,6 @@
 import { Button } from "@blueprintjs/core";
 import * as React from "react";
+import { DerivedIdField } from "../components/forms/DerivedIdField";
 import { TextInput } from "../components/forms/TextInput";
 import { Layout } from "../components/Layout";
 import { Table, TableColumn } from "../components/Table";
@@ -75,9 +76,10 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
                     value={this.state.documentType.name}
                     onChange={this.onChangeName}
                 />
-                <TextInput
+                <DerivedIdField
                     label="ID"
                     placeholder="ID..."
+                    derivedFrom={this.state.documentType.name}
                     value={this.state.documentType.id}
                     onChange={this.onChangeId}
                 />

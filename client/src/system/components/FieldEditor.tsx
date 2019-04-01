@@ -1,4 +1,5 @@
 import * as React from "react";
+import { DerivedIdField } from "../../components/forms/DerivedIdField";
 import { TextInput } from "../../components/forms/TextInput";
 import { InputField } from "../../__generated__/globalTypes";
 import { FieldTypeSelector } from "./FieldTypeSelector";
@@ -20,9 +21,10 @@ export class FieldEditor extends React.Component<Props> {
                         this.props.onChange({ ...this.props.field, name })
                     }
                 />
-                <TextInput
+                <DerivedIdField
                     label="Field ID"
                     value={id}
+                    derivedFrom={name}
                     onChange={id =>
                         this.props.onChange({ ...this.props.field, id })
                     }
