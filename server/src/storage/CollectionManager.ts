@@ -41,6 +41,10 @@ export class CollectionManager {
 
     constructor(private storage: Storage) {}
 
+    async get(id: string): Promise<DocumentType> {
+        return await this.storage.get(DOCUMENT_TYPES_COLLECTION, id);
+    }
+
     async initialize() {
         await this.storage.updateCollection(DOCUMENT_TYPES_COLLECTION);
     }

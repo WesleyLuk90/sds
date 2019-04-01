@@ -85,6 +85,18 @@ export class Storage {
         }
     }
 
+    async get<T extends Document>(
+        collection: Collection,
+        id: string
+    ): Promise<T> {
+        const response = await this.client.get({
+            index: collection.getId(),
+            type: "_doc",
+            id: id
+        });
+        return this.fromResponse<T>(response.body);
+    }
+
     async update(
         collection: Collection,
         document: Document,
@@ -106,9 +118,13 @@ export class Storage {
             index: collection.getId(),
             type: "_doc"
         });
-        return results.body.hits.hits.map((d: any) => ({
-            ...d._source,
-            id: d._id
-        }));
+        return results.body.hits.hits.map(this.fromResponse);
+    }
+
+    fromResponse<T extends Document>(response: { _source: T; _id: string }): T {
+        return {
+            ...response._source,
+            id: response._id
+        };
     }
 }

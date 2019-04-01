@@ -34,11 +34,16 @@ export class DocumentTypeUpdater {
         oldField: InputField,
         newField: InputField
     ): InputDocumentType {
-        if (!documentType.fields.fill(oldField)) {
+        if (!documentType.fields.includes(oldField)) {
             throw new Error("Old field not in document");
         }
-        const fields = documentType.fields.filter(f => f !== oldField);
-        fields.push(newField);
+        const fields = documentType.fields.map(f => {
+            if (f === oldField) {
+                return newField;
+            } else {
+                return oldField;
+            }
+        });
         return {
             ...documentType,
             fields

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { Actions } from "../components/Actions";
 import { Layout } from "../components/Layout";
 import { loader } from "../components/Loader";
@@ -13,7 +14,16 @@ interface State {
 }
 
 const COLUMNS = [
-    TableColumn.create("name", "Name", (r: DocumentType) => r.name)
+    TableColumn.create("name", "Name", (r: DocumentType) => (
+        <Link to={`/system/document-types/edit/${r.id}`}>
+            {r.name || "<No Name>"}
+        </Link>
+    )),
+    TableColumn.create(
+        "fields",
+        "Fields",
+        (r: DocumentType) => `${r.fields.length} Fields`
+    )
 ];
 
 export class DocumentTypesPage extends React.Component<{}, State> {

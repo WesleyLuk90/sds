@@ -9,6 +9,7 @@ import { DocumentSchema, DocumentType } from "./DocumentType";
 const QuerySchema = `
 type Query {
     documentTypes: [DocumentType!]!
+    documentType(id: String!): DocumentType!
 }`;
 
 const MutationSchema = `
@@ -37,6 +38,10 @@ export class QueryRoot {
 
     async documentTypes(): Promise<DocumentType[]> {
         return this.storage.search<DocumentType>(DOCUMENT_TYPES_COLLECTION);
+    }
+
+    async documentType(args: { id: string }): Promise<DocumentType> {
+        return this.collectionManager.get(args.id);
     }
 
     async createDocumentType(args: { documentType: DocumentType }) {

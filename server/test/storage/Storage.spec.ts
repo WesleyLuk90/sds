@@ -1,15 +1,15 @@
 import {
     Collection,
     CollectionField,
-    FieldType
+    CollectionFieldType
 } from "../../src/storage/Collection";
 import { Document, Storage } from "../../src/storage/Storage";
 
 describe.skip("Storage", () => {
     const TEST_COLLECTION_TYPE: any = "test";
     const testCollection = new Collection(TEST_COLLECTION_TYPE, "test-foo")
-        .addField(new CollectionField(FieldType.KEYWORD, "first"))
-        .addField(new CollectionField(FieldType.KEYWORD, "second"));
+        .addField(new CollectionField(CollectionFieldType.KEYWORD, "first"))
+        .addField(new CollectionField(CollectionFieldType.KEYWORD, "second"));
     let storage: Storage;
 
     beforeEach(async () => {
@@ -37,8 +37,10 @@ describe.skip("Storage", () => {
 
     it("should update schema", async () => {
         const updated = new Collection(TEST_COLLECTION_TYPE, "test-foo")
-            .addField(new CollectionField(FieldType.KEYWORD, "first"))
-            .addField(new CollectionField(FieldType.KEYWORD, "third"));
+            .addField(new CollectionField(CollectionFieldType.KEYWORD, "first"))
+            .addField(
+                new CollectionField(CollectionFieldType.KEYWORD, "third")
+            );
         await storage.updateCollection(updated);
 
         const updatedMappings = await storage.client.indices.getMapping({
@@ -66,6 +68,20 @@ describe.skip("Storage", () => {
         expect(await storage.search(testCollection)).toEqual([
             { id: created.id, first: "hello" }
         ]);
+    });
+
+    it("should get document with generated id", async () => {
+        const document = {
+            id: null,
+            first: "hello"
+        } as Document;
+        const created = await storage.create(testCollection, document);
+        try {
+            await storage.get(testCollection, created.id!);
+        } catch (e) {
+            console.error(e);
+        }
+        expect(await storage.get(testCollection, created.id!)).toEqual(created);
     });
 
     it("should fail on duplicate", async () => {
