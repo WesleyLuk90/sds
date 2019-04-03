@@ -23,7 +23,7 @@ export class CollectionService {
 
     toCollection(documentType: DocumentType): Collection {
         return new Collection(CollectionType.USER, documentType.id).setFields(
-            documentType.fields.map(this.toCollectionField)
+            documentType.fields.map(f => this.toCollectionField(f))
         );
     }
 }

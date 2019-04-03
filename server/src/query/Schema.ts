@@ -1,22 +1,25 @@
 import { buildSchema } from "graphql";
 import { DocumentService } from "../documents/DocumentService";
+import DocumentTypeService from "../documents/DocumentTypeService";
 import {
     CollectionManager,
     DOCUMENT_TYPES_COLLECTION
 } from "../storage/CollectionManager";
+import { CollectionService } from "../storage/CollectionService";
 import { Storage } from "../storage/Storage";
 import { Document, DocumentSchema } from "./Document";
 import { DocumentType, DocumentTypeSchema } from "./DocumentType";
 
 const QuerySchema = `
 type Query {
+    listDocuments(type: String!): [Document!]!
     documentTypes: [DocumentType!]!
     documentType(id: String!): DocumentType!
 }`;
 
 const MutationSchema = `
 type Mutation {
-    createDocument(document: InputDocument): InputDocument!
+    createDocument(document: InputDocument, wait: Boolean): Document!
     createDocumentType(documentType: InputDocumentType): DocumentType!
     updateDocumentType(documentType: InputDocumentType): DocumentType!
 }`;
@@ -34,7 +37,12 @@ export class QueryRoot {
     static async create() {
         const storage = await Storage.create();
         const collectionManager = await CollectionManager.create(storage);
-        return new QueryRoot(storage, collectionManager);
+        const documentService = new DocumentService(
+            storage,
+            new DocumentTypeService(storage),
+            new CollectionService()
+        );
+        return new QueryRoot(storage, collectionManager, documentService);
     }
 
     constructor(
@@ -43,8 +51,15 @@ export class QueryRoot {
         private documentService: DocumentService
     ) {}
 
-    async createDocument(args: { document: Document }): Document {
-        return this.documentService.create(args.document);
+    async createDocument(args: {
+        document: Document;
+        wait?: boolean;
+    }): Promise<Document> {
+        return this.documentService.create(args.document, { wait: args.wait });
+    }
+
+    async listDocuments(args: { type: string }): Promise<Document[]> {
+        return this.documentService.list(args.type);
     }
 
     async documentTypes(): Promise<DocumentType[]> {

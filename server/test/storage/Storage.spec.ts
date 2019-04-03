@@ -5,7 +5,7 @@ import {
 } from "../../src/storage/Collection";
 import { RawDocument, Storage } from "../../src/storage/Storage";
 
-describe.skip("Storage", () => {
+describe.integration("Storage", () => {
     const TEST_COLLECTION_TYPE: any = "test";
     const testCollection = new Collection(TEST_COLLECTION_TYPE, "test-foo")
         .addField(new CollectionField(CollectionFieldType.KEYWORD, "first"))
