@@ -4,6 +4,7 @@ import { InputField } from "../../__generated__/globalTypes";
 import { FieldTypeSelector } from "./FieldTypeSelector";
 
 interface Props {
+    new: boolean;
     field: InputField;
     onChange: (field: InputField) => void;
 }
@@ -21,6 +22,7 @@ export class FieldEditor extends React.Component<Props> {
                     onChange={(name, id) =>
                         this.props.onChange({ ...this.props.field, name, id })
                     }
+                    new={this.props.new}
                 />
                 <FieldTypeSelector
                     value={type}

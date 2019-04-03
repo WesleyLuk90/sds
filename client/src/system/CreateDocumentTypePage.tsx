@@ -28,6 +28,7 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
         return (
             <Layout title="Create a new Document Type">
                 <DocumentTypeEditor
+                    new
                     documentType={this.state.documentType}
                     onChange={d => this.setState({ documentType: d })}
                 />

@@ -7,6 +7,7 @@ import { DocumentTypeUpdater } from "../DocumentTypeUpdater";
 import { FieldEditor } from "./FieldEditor";
 
 interface Props {
+    new: boolean;
     documentType: InputDocumentType;
     onChange: (documentType: InputDocumentType) => void;
 }
@@ -15,6 +16,7 @@ export class DocumentTypeEditor extends React.Component<Props> {
     COLUMNS: TableColumn<InputField>[] = [
         TableColumn.create("field", this.renderTitle(), row => (
             <FieldEditor
+                new={this.props.new}
                 field={row}
                 onChange={newField => this.onChangeField(row, newField)}
             />
@@ -57,6 +59,7 @@ export class DocumentTypeEditor extends React.Component<Props> {
                     derivedLabel="ID"
                     derivedValue={id}
                     onChange={this.onChangeNameId}
+                    new={this.props.new}
                 />
                 <h3>Fields</h3>
                 <Table

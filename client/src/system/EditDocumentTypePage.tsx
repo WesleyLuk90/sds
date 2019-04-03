@@ -22,7 +22,6 @@ export class EditDocumentTypePage extends React.Component<
     async componentDidMount() {
         const id = this.props.match.params.id;
         const type = await DocumentTypeRequests.get(id);
-        console.log(type);
         this.setState({ documentType: type });
     }
 
@@ -38,6 +37,7 @@ export class EditDocumentTypePage extends React.Component<
                 {loader(this.state.documentType, documentType => (
                     <div>
                         <DocumentTypeEditor
+                            new={false}
                             documentType={documentType}
                             onChange={d => this.setState({ documentType: d })}
                         />

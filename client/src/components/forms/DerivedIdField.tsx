@@ -2,6 +2,7 @@ import { FormGroup, InputGroup, Switch } from "@blueprintjs/core";
 import * as React from "react";
 
 interface Props {
+    new: boolean;
     label: string;
     derivedLabel: string;
     value: string;
@@ -31,7 +32,7 @@ export class DerivedIdField extends React.Component<Props, State> {
     }
 
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (this.state.auto) {
+        if (this.state.auto && this.props.new) {
             this.props.onChange(
                 e.target.value,
                 this.deriveValue(e.target.value)
@@ -46,16 +47,9 @@ export class DerivedIdField extends React.Component<Props, State> {
         this.props.onChange(this.props.value, e.target.value);
     };
 
-    render() {
-        return (
-            <div>
-                <FormGroup label={this.props.label} labelFor={this.valueId}>
-                    <InputGroup
-                        id={this.valueId}
-                        value={this.props.value}
-                        onChange={this.onChange}
-                    />
-                </FormGroup>
+    renderIdField() {
+        if (this.props.new) {
+            return (
                 <FormGroup
                     label={this.props.derivedLabel}
                     labelFor={this.valueId}
@@ -72,6 +66,31 @@ export class DerivedIdField extends React.Component<Props, State> {
                             this.setState({ auto: !this.state.auto })
                         }
                     />
+                </FormGroup>
+            );
+        } else {
+            return (
+                <FormGroup label={this.props.derivedLabel}>
+                    <InputGroup
+                        id={this.derivedValueId}
+                        value={this.props.derivedValue}
+                        disabled
+                    />
+                </FormGroup>
+            );
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <FormGroup label={this.props.label} labelFor={this.valueId}>
+                    <InputGroup
+                        id={this.valueId}
+                        value={this.props.value}
+                        onChange={this.onChange}
+                    />
+                    {this.renderIdField()}
                 </FormGroup>
             </div>
         );
