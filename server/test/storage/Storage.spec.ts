@@ -3,7 +3,7 @@ import {
     CollectionField,
     CollectionFieldType
 } from "../../src/storage/Collection";
-import { Document, Storage } from "../../src/storage/Storage";
+import { RawDocument, Storage } from "../../src/storage/Storage";
 
 describe.skip("Storage", () => {
     const TEST_COLLECTION_TYPE: any = "test";
@@ -57,7 +57,7 @@ describe.skip("Storage", () => {
         const document = {
             id: null,
             first: "hello"
-        } as Document;
+        } as RawDocument;
         const created = await storage.create(testCollection, document, {
             block: true
         });
@@ -74,7 +74,7 @@ describe.skip("Storage", () => {
         const document = {
             id: null,
             first: "hello"
-        } as Document;
+        } as RawDocument;
         const created = await storage.create(testCollection, document);
         try {
             await storage.get(testCollection, created.id!);
@@ -88,7 +88,7 @@ describe.skip("Storage", () => {
         const document = {
             id: "foo",
             first: "hello"
-        } as Document;
+        } as RawDocument;
         await storage.create(testCollection, document, {
             block: true
         });

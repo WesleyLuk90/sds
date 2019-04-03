@@ -1,7 +1,7 @@
 import { Client } from "@elastic/elasticsearch";
 import { Collection } from "./Collection";
 
-export interface Document {
+export interface RawDocument {
     id?: string;
 }
 
@@ -67,9 +67,9 @@ export class Storage {
 
     async create(
         collection: Collection,
-        document: Document,
+        document: RawDocument,
         options: Options = DEFAULT_OPTIONS
-    ): Promise<Document> {
+    ): Promise<RawDocument> {
         try {
             const request = await this.client.index({
                 index: collection.getId(),
@@ -85,7 +85,7 @@ export class Storage {
         }
     }
 
-    async get<T extends Document>(
+    async get<T extends RawDocument>(
         collection: Collection,
         id: string
     ): Promise<T> {
@@ -99,7 +99,7 @@ export class Storage {
 
     async update(
         collection: Collection,
-        document: Document,
+        document: RawDocument,
         options: Options = DEFAULT_OPTIONS
     ) {
         await this.client.update({
@@ -113,7 +113,7 @@ export class Storage {
         });
     }
 
-    async search<T extends Document>(collection: Collection): Promise<T[]> {
+    async search<T extends RawDocument>(collection: Collection): Promise<T[]> {
         const results = await this.client.search({
             index: collection.getId(),
             type: "_doc"
@@ -121,7 +121,10 @@ export class Storage {
         return results.body.hits.hits.map(this.fromResponse);
     }
 
-    fromResponse<T extends Document>(response: { _source: T; _id: string }): T {
+    fromResponse<T extends RawDocument>(response: {
+        _source: T;
+        _id: string;
+    }): T {
         return {
             ...response._source,
             id: response._id

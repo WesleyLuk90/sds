@@ -1,4 +1,4 @@
-export const DocumentSchema = `
+export const DocumentTypeSchema = `
 input InputDocumentType {
     id: ID!
     name: String!

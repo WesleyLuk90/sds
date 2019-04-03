@@ -1,10 +1,12 @@
 import { buildSchema } from "graphql";
+import { DocumentService } from "../documents/DocumentService";
 import {
     CollectionManager,
     DOCUMENT_TYPES_COLLECTION
 } from "../storage/CollectionManager";
 import { Storage } from "../storage/Storage";
-import { DocumentSchema, DocumentType } from "./DocumentType";
+import { Document, DocumentSchema } from "./Document";
+import { DocumentType, DocumentTypeSchema } from "./DocumentType";
 
 const QuerySchema = `
 type Query {
@@ -14,13 +16,17 @@ type Query {
 
 const MutationSchema = `
 type Mutation {
+    createDocument(document: InputDocument): InputDocument!
     createDocumentType(documentType: InputDocumentType): DocumentType!
     updateDocumentType(documentType: InputDocumentType): DocumentType!
 }`;
 
-export const RawSchema = [QuerySchema, MutationSchema, DocumentSchema].join(
-    "\n"
-);
+export const RawSchema = [
+    QuerySchema,
+    MutationSchema,
+    DocumentTypeSchema,
+    DocumentSchema
+].join("\n");
 
 export const Schema = buildSchema(RawSchema);
 
@@ -33,8 +39,13 @@ export class QueryRoot {
 
     constructor(
         private storage: Storage,
-        private collectionManager: CollectionManager
+        private collectionManager: CollectionManager,
+        private documentService: DocumentService
     ) {}
+
+    async createDocument(args: { document: Document }): Document {
+        return this.documentService.create(args.document);
+    }
 
     async documentTypes(): Promise<DocumentType[]> {
         return this.storage.search<DocumentType>(DOCUMENT_TYPES_COLLECTION);
