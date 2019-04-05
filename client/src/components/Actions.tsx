@@ -1,10 +1,10 @@
-import { Button, ButtonGroup, IconName } from "@blueprintjs/core";
+import { Button } from "@material-ui/core";
 import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import * as styles from "./Actions.css";
 
 interface Action {
-    icon: IconName;
+    icon: string;
     label: string;
     path?: string;
 }
@@ -22,17 +22,15 @@ export class BaseActions extends React.Component<Props> {
     render() {
         return (
             <div className={styles.actions}>
-                <ButtonGroup>
-                    {this.props.actions.map((action, i) => (
-                        <Button
-                            key={i}
-                            icon={action.icon}
-                            onClick={() => this.click(action)}
-                        >
-                            {action.label}
-                        </Button>
-                    ))}
-                </ButtonGroup>
+                {this.props.actions.map((action, i) => (
+                    <Button
+                        variant="contained"
+                        key={i}
+                        onClick={() => this.click(action)}
+                    >
+                        {action.label}
+                    </Button>
+                ))}
             </div>
         );
     }
