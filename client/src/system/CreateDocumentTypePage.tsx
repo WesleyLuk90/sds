@@ -31,10 +31,11 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
                     new
                     documentType={this.state.documentType}
                     onChange={d => this.setState({ documentType: d })}
-                />
-                <Button variant="contained" onClick={this.onCreate}>
-                    Create
-                </Button>
+                >
+                    <Button variant="contained" onClick={this.onCreate}>
+                        Create
+                    </Button>
+                </DocumentTypeEditor>
             </Layout>
         );
     }

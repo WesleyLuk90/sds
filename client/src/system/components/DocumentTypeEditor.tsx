@@ -1,7 +1,14 @@
-import { Button } from "@material-ui/core";
+import {
+    Button,
+    ExpansionPanel,
+    ExpansionPanelDetails,
+    ExpansionPanelSummary,
+    Typography
+} from "@material-ui/core";
 import * as React from "react";
+import { theme } from "../../app/Application";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";
-import { Table, TableColumn } from "../../components/Table";
+import { Panel } from "../../components/Panel";
 import { InputDocumentType, InputField } from "../../__generated__/globalTypes";
 import { DocumentTypeUpdater } from "../DocumentTypeUpdater";
 import { FieldEditor } from "./FieldEditor";
@@ -13,24 +20,6 @@ interface Props {
 }
 
 export class DocumentTypeEditor extends React.Component<Props> {
-    COLUMNS: TableColumn<InputField>[] = [
-        TableColumn.create("field", this.renderTitle(), row => (
-            <FieldEditor
-                new={this.props.new}
-                field={row}
-                onChange={newField => this.onChangeField(row, newField)}
-            />
-        ))
-    ];
-
-    renderTitle() {
-        return (
-            <Button variant="contained" onClick={() => this.onAdd()}>
-                Add Field
-            </Button>
-        );
-    }
-
     updateDocument(
         updater: (documentType: InputDocumentType) => InputDocumentType
     ) {
@@ -54,7 +43,8 @@ export class DocumentTypeEditor extends React.Component<Props> {
     render() {
         const { name, id, fields } = this.props.documentType;
         return (
-            <div>
+            <Panel>
+                <Typography variant="h4">Document Type Properties</Typography>
                 <DerivedIdField
                     label="Name"
                     value={name}
@@ -63,13 +53,35 @@ export class DocumentTypeEditor extends React.Component<Props> {
                     onChange={this.onChangeNameId}
                     new={this.props.new}
                 />
-                <h3>Fields</h3>
-                <Table
-                    rows={fields}
-                    rowKey={(r, i) => i}
-                    columns={this.COLUMNS}
-                />
-            </div>
+                <Typography
+                    variant="h4"
+                    style={{ marginBottom: theme.spacing.unit * 2 }}
+                >
+                    Fields
+                </Typography>
+                <div style={{ marginBottom: theme.spacing.unit * 2 }}>
+                    <Button color="primary" onClick={() => this.onAdd()}>
+                        Add Field
+                    </Button>
+                </div>
+                {fields.map((f, i) => (
+                    <ExpansionPanel key={i}>
+                        <ExpansionPanelSummary>
+                            {f.name}({f.id})
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <FieldEditor
+                                new={this.props.new}
+                                field={f}
+                                onChange={newField =>
+                                    this.onChangeField(f, newField)
+                                }
+                            />
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                ))}
+                {this.props.children}
+            </Panel>
         );
     }
 }

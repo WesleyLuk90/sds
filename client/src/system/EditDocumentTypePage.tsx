@@ -40,10 +40,11 @@ export class EditDocumentTypePage extends React.Component<
                             new={false}
                             documentType={documentType}
                             onChange={d => this.setState({ documentType: d })}
-                        />
-                        <Button variant="contained" onClick={this.onUpdate}>
-                            Update
-                        </Button>
+                        >
+                            <Button variant="contained" onClick={this.onUpdate}>
+                                Update
+                            </Button>
+                        </DocumentTypeEditor>
                     </div>
                 ))}
             </Layout>

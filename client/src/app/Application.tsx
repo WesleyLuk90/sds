@@ -16,7 +16,7 @@ const jss = create({
     ...jssPreset(),
     insertionPoint: "jss-insertion-point"
 });
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
     typography: {
         useNextVariants: true
     },
