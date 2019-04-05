@@ -1,4 +1,4 @@
-import { Button } from "@blueprintjs/core";
+import { Button } from "@material-ui/core";
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 import { Layout } from "../components/Layout";
@@ -41,7 +41,9 @@ export class EditDocumentTypePage extends React.Component<
                             documentType={documentType}
                             onChange={d => this.setState({ documentType: d })}
                         />
-                        <Button onClick={this.onUpdate} text="Update" />
+                        <Button variant="contained" onClick={this.onUpdate}>
+                            Update
+                        </Button>
                     </div>
                 ))}
             </Layout>

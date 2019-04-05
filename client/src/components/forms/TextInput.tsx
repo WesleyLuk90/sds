@@ -1,4 +1,4 @@
-import { FormGroup, InputGroup } from "@blueprintjs/core";
+import { TextField } from "@material-ui/core";
 import * as React from "react";
 
 export interface TextInputProps {
@@ -14,17 +14,15 @@ export class TextInput extends React.Component<TextInputProps> {
 
     render() {
         return (
-            <FormGroup label={this.props.label} labelFor={this.id}>
-                <InputGroup
-                    id={this.id}
-                    disabled={this.props.disabled}
-                    placeholder={this.props.placeholder}
-                    value={this.props.value}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        this.props.onChange(e.target.value)
-                    }
-                />
-            </FormGroup>
+            <TextField
+                label={this.props.label}
+                disabled={this.props.disabled}
+                placeholder={this.props.placeholder}
+                value={this.props.value}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    this.props.onChange(e.target.value)
+                }
+            />
         );
     }
 }

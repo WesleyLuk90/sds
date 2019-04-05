@@ -1,3 +1,4 @@
+import { Paper } from "@material-ui/core";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Actions } from "../components/Actions";
@@ -48,11 +49,13 @@ export class DocumentTypesPage extends React.Component<{}, State> {
                     ]}
                 />
                 {loader(this.state.documentTypes, documentTypes => (
-                    <Table
-                        rows={documentTypes}
-                        rowKey={t => t.id}
-                        columns={COLUMNS}
-                    />
+                    <Paper>
+                        <Table
+                            rows={documentTypes}
+                            rowKey={t => t.id}
+                            columns={COLUMNS}
+                        />
+                    </Paper>
                 ))}
             </Layout>
         );

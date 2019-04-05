@@ -1,4 +1,4 @@
-import { FormGroup, HTMLSelect } from "@blueprintjs/core";
+import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import * as React from "react";
 import { FieldType } from "../../__generated__/globalTypes";
 
@@ -22,13 +22,16 @@ export class FieldTypeSelector extends React.Component<Props> {
 
     render() {
         return (
-            <FormGroup label="Field Type">
-                <HTMLSelect
-                    value={this.props.value}
-                    options={this.options()}
-                    onChange={this.onChange}
-                />
-            </FormGroup>
+            <FormControl style={{ width: 400 }}>
+                <InputLabel>Field Type</InputLabel>
+                <Select value={this.props.value} onChange={this.onChange}>
+                    {this.options().map(o => (
+                        <MenuItem value={o} key={o}>
+                            {o}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
         );
     }
 }

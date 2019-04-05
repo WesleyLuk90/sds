@@ -1,4 +1,4 @@
-import { Spinner } from "@blueprintjs/core";
+import { CircularProgress } from "@material-ui/core";
 import * as React from "react";
 
 export function loader<T>(
@@ -6,7 +6,7 @@ export function loader<T>(
     render: (value: T) => React.ReactNode
 ): React.ReactNode {
     if (value == null) {
-        return <Spinner />;
+        return <CircularProgress />;
     } else {
         return render(value);
     }

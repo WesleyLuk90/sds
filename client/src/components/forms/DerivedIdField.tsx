@@ -1,4 +1,4 @@
-import { FormGroup, InputGroup, Switch } from "@blueprintjs/core";
+import { FormControlLabel, Switch, TextField } from "@material-ui/core";
 import * as React from "react";
 
 interface Props {
@@ -50,33 +50,33 @@ export class DerivedIdField extends React.Component<Props, State> {
     renderIdField() {
         if (this.props.new) {
             return (
-                <FormGroup
-                    label={this.props.derivedLabel}
-                    labelFor={this.valueId}
-                >
-                    <InputGroup
-                        id={this.derivedValueId}
+                <div>
+                    <TextField
+                        label={this.props.derivedLabel}
                         value={this.props.derivedValue}
                         onChange={this.onChangeDerived}
                     />
-                    <Switch
-                        checked={this.state.auto}
-                        label="Automatic"
-                        onChange={() =>
-                            this.setState({ auto: !this.state.auto })
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={this.state.auto}
+                                onChange={() =>
+                                    this.setState({ auto: !this.state.auto })
+                                }
+                            />
                         }
+                        label="Automatic"
                     />
-                </FormGroup>
+                </div>
             );
         } else {
             return (
-                <FormGroup label={this.props.derivedLabel}>
-                    <InputGroup
-                        id={this.derivedValueId}
-                        value={this.props.derivedValue}
-                        disabled
-                    />
-                </FormGroup>
+                <TextField
+                    label={this.props.derivedLabel}
+                    value={this.props.derivedValue}
+                    onChange={this.onChangeDerived}
+                    disabled
+                />
             );
         }
     }
@@ -84,14 +84,12 @@ export class DerivedIdField extends React.Component<Props, State> {
     render() {
         return (
             <div>
-                <FormGroup label={this.props.label} labelFor={this.valueId}>
-                    <InputGroup
-                        id={this.valueId}
-                        value={this.props.value}
-                        onChange={this.onChange}
-                    />
-                    {this.renderIdField()}
-                </FormGroup>
+                <TextField
+                    label={this.props.label}
+                    value={this.props.value}
+                    onChange={this.onChange}
+                />
+                {this.renderIdField()}
             </div>
         );
     }

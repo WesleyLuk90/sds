@@ -1,4 +1,10 @@
-import { HTMLTable } from "@blueprintjs/core";
+import {
+    Table as MuiTable,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow
+} from "@material-ui/core";
 import * as React from "react";
 
 interface Props<R> {
@@ -26,24 +32,26 @@ export class TableColumn<R> {
 export class Table<R> extends React.Component<Props<R>> {
     render() {
         return (
-            <HTMLTable style={{ width: "100%" }} bordered>
-                <thead>
-                    <tr>
+            <MuiTable style={{ width: "100%" }}>
+                <TableHead>
+                    <TableRow>
                         {this.props.columns.map(col => (
-                            <th key={col.id}>{col.header}</th>
+                            <TableCell key={col.id}>{col.header}</TableCell>
                         ))}
-                    </tr>
-                </thead>
-                <tbody>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {this.props.rows.map((row, index) => (
-                        <tr key={this.props.rowKey(row, index)}>
+                        <TableRow key={this.props.rowKey(row, index)}>
                             {this.props.columns.map(col => (
-                                <td key={col.id}>{col.formatter(row)}</td>
+                                <TableCell key={col.id}>
+                                    {col.formatter(row)}
+                                </TableCell>
                             ))}
-                        </tr>
+                        </TableRow>
                     ))}
-                </tbody>
-            </HTMLTable>
+                </TableBody>
+            </MuiTable>
         );
     }
 }

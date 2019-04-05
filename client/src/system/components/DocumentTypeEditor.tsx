@@ -1,4 +1,4 @@
-import { Button } from "@blueprintjs/core";
+import { Button } from "@material-ui/core";
 import * as React from "react";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";
 import { Table, TableColumn } from "../../components/Table";
@@ -25,7 +25,9 @@ export class DocumentTypeEditor extends React.Component<Props> {
 
     renderTitle() {
         return (
-            <Button icon="plus" text="Add Field" onClick={() => this.onAdd()} />
+            <Button variant="contained" onClick={() => this.onAdd()}>
+                Add Field
+            </Button>
         );
     }
 

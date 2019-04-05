@@ -1,4 +1,4 @@
-import { Button } from "@blueprintjs/core";
+import { Button } from "@material-ui/core";
 import * as React from "react";
 import { Layout } from "../components/Layout";
 import { InputDocumentType } from "../__generated__/globalTypes";
@@ -32,7 +32,9 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
                     documentType={this.state.documentType}
                     onChange={d => this.setState({ documentType: d })}
                 />
-                <Button onClick={this.onCreate} text="Create" />
+                <Button variant="contained" onClick={this.onCreate}>
+                    Create
+                </Button>
             </Layout>
         );
     }

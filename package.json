@@ -19,7 +19,6 @@
         "generate:typedefs": "apollo client:codegen --config apollo.config.js --target typescript --globalTypesFile=client/src/__generated__/globalTypes.ts"
     },
     "dependencies": {
-        "@blueprintjs/core": "^3.15.0",
         "@elastic/elasticsearch": "^0.1.0-beta.2",
         "@material-ui/core": "^3.9.3",
         "axios": "^0.18.0",
