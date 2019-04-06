@@ -1,8 +1,9 @@
-import { Paper } from "@material-ui/core";
+import { IconButton, Paper } from "@material-ui/core";
+import { Edit } from "@material-ui/icons";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { AppLink } from "../app/AppLink";
 import { Actions } from "../components/Actions";
-import { Layout } from "../components/Layout";
+import { DefaultPage } from "../components/DefaultPage";
 import { loader } from "../components/Loader";
 import { Table, TableColumn } from "../components/Table";
 import {
@@ -16,15 +17,22 @@ interface State {
 
 const COLUMNS = [
     TableColumn.create("name", "Name", (r: DocumentType) => (
-        <Link to={`/system/document-types/edit/${r.id}`}>
+        <AppLink to={`/system/document-types/edit/${r.id}`}>
             {r.name || "<No Name>"}
-        </Link>
+        </AppLink>
     )),
     TableColumn.create(
         "fields",
         "Fields",
         (r: DocumentType) => `${r.fields.length} Fields`
-    )
+    ),
+    TableColumn.create("edit", "Edit", (r: DocumentType) => (
+        <AppLink to={`/system/document-types/edit/${r.id}`}>
+            <IconButton>
+                <Edit />
+            </IconButton>
+        </AppLink>
+    ))
 ];
 
 export class DocumentTypesPage extends React.Component<{}, State> {
@@ -38,7 +46,7 @@ export class DocumentTypesPage extends React.Component<{}, State> {
 
     render() {
         return (
-            <Layout title="Document Types">
+            <DefaultPage title="Document Types">
                 <Actions
                     actions={[
                         {
@@ -57,7 +65,7 @@ export class DocumentTypesPage extends React.Component<{}, State> {
                         />
                     </Paper>
                 ))}
-            </Layout>
+            </DefaultPage>
         );
     }
 }

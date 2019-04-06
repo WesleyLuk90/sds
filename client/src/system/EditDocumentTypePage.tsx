@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
-import { Layout } from "../components/Layout";
+import { DefaultPage } from "../components/DefaultPage";
 import { loader } from "../components/Loader";
 import { InputDocumentType } from "../__generated__/globalTypes";
 import { DocumentTypeEditor } from "./components/DocumentTypeEditor";
@@ -26,14 +26,12 @@ export class EditDocumentTypePage extends React.Component<
     }
 
     onUpdate = async () => {
-        const documentType = await DocumentTypeRequests.create(
-            this.state.documentType
-        );
+        await DocumentTypeRequests.create(this.state.documentType);
     };
 
     render() {
         return (
-            <Layout title="Update Document Type">
+            <DefaultPage title="Update Document Type">
                 {loader(this.state.documentType, documentType => (
                     <div>
                         <DocumentTypeEditor
@@ -47,7 +45,7 @@ export class EditDocumentTypePage extends React.Component<
                         </DocumentTypeEditor>
                     </div>
                 ))}
-            </Layout>
+            </DefaultPage>
         );
     }
 }

@@ -1,0 +1,3 @@
+:local(.layout > * + *) {
+    margin-top: 16px;
+}

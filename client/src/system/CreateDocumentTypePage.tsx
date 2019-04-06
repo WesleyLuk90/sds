@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import * as React from "react";
-import { Layout } from "../components/Layout";
+import { DefaultPage } from "../components/DefaultPage";
 import { InputDocumentType } from "../__generated__/globalTypes";
 import { DocumentTypeEditor } from "./components/DocumentTypeEditor";
 import { DocumentTypeRequests } from "./requests/DocumentTypeRequests";
@@ -26,7 +26,7 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
 
     render() {
         return (
-            <Layout title="Create a new Document Type">
+            <DefaultPage title="Create a new Document Type">
                 <DocumentTypeEditor
                     new
                     documentType={this.state.documentType}
@@ -36,7 +36,7 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
                         Create
                     </Button>
                 </DocumentTypeEditor>
-            </Layout>
+            </DefaultPage>
         );
     }
 }

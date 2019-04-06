@@ -1,13 +1,13 @@
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import * as React from "react";
 import { theme } from "../app/Application";
-import * as styles from "./Layout.css";
+import * as styles from "./DefaultPage.css";
 
 interface Props {
     title: React.ReactNode;
 }
 
-export class Layout extends React.Component<Props> {
+export class DefaultPage extends React.Component<Props> {
     render() {
         return (
             <div style={{ padding: theme.spacing.unit * 3 }}>

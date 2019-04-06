@@ -21,7 +21,9 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: "awesome-typescript-loader",
                 options: {
-                    configFileName: path.join(__dirname, "tsconfig.json")
+                    configFileName: path.join(__dirname, "tsconfig.json"),
+                    useBabel: true,
+                    babelCore: "@babel/core"
                 }
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
