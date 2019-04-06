@@ -1,6 +1,7 @@
-import { createMuiTheme, CssBaseline } from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import {
     createGenerateClassName,
+    createMuiTheme,
     jssPreset,
     MuiThemeProvider
 } from "@material-ui/core/styles";

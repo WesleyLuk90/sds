@@ -9,7 +9,7 @@ module.exports = {
         path: path.join(__dirname, "dist")
     },
 
-    devtool: "source-map",
+    devtool: "inline-source-map",
 
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
@@ -19,21 +19,20 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: "awesome-typescript-loader",
-                options: {
-                    configFileName: path.join(__dirname, "tsconfig.json"),
-                    useBabel: true,
-                    babelCore: "@babel/core"
-                }
+                use: [
+                    { loader: "babel-loader" },
+                    {
+                        loader: "ts-loader",
+                        options: {
+                            transpileOnly: true
+                        }
+                    }
+                ],
+                exclude: /node_modules/
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
-                test: /globals\.css$/,
-                use: ["style-loader", "css-loader"]
-            },
-            {
                 test: /\.css$/,
-                exclude: [path.join(__dirname, "src/app/globals.css")],
                 use: [
                     "style-loader",
                     "css-modules-typescript-loader",
@@ -58,6 +57,9 @@ module.exports = {
                 ]
             }
         ]
+    },
+    optimization: {
+        usedExports: true
     },
 
     plugins: [
