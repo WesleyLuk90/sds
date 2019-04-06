@@ -6,7 +6,8 @@
         "module": "esnext",
         "moduleResolution": "node",
         "target": "esnext",
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "types": []
     },
     "include": ["./src/**/*"]
 }

@@ -1,5 +1,6 @@
 import { FormControlLabel, Switch, TextField } from "@material-ui/core";
 import * as React from "react";
+import * as styles from "./DerivedIdField.css";
 
 interface Props {
     new: boolean;
@@ -50,7 +51,7 @@ export class DerivedIdField extends React.Component<Props, State> {
     renderIdField() {
         if (this.props.new) {
             return (
-                <div>
+                <div className={styles.id}>
                     <TextField
                         label={this.props.derivedLabel}
                         value={this.props.derivedValue}
@@ -76,6 +77,7 @@ export class DerivedIdField extends React.Component<Props, State> {
                     value={this.props.derivedValue}
                     onChange={this.onChangeDerived}
                     disabled
+                    className={styles.id}
                 />
             );
         }
@@ -83,11 +85,12 @@ export class DerivedIdField extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
+            <div className={styles.container}>
                 <TextField
                     label={this.props.label}
                     value={this.props.value}
                     onChange={this.onChange}
+                    className={styles.derived}
                 />
                 {this.renderIdField()}
             </div>

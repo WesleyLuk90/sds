@@ -1,0 +1,12 @@
+:local(.container) {
+    display: flex;
+}
+
+:local(.derived) {
+    min-width: 300px;
+    margin-right: 16px;
+}
+
+:local(.id) {
+    min-width: 300px;
+}

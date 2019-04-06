@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";
+import { VerticalLayout } from "../../components/layout/VerticalLayout";
 import { InputField } from "../../__generated__/globalTypes";
 import { FieldTypeSelector } from "./FieldTypeSelector";
 
@@ -13,7 +14,7 @@ export class FieldEditor extends React.Component<Props> {
     render() {
         const { id, name, type } = this.props.field;
         return (
-            <div>
+            <VerticalLayout>
                 <DerivedIdField
                     label="Field Name"
                     value={name}
@@ -30,7 +31,7 @@ export class FieldEditor extends React.Component<Props> {
                         this.props.onChange({ ...this.props.field, type })
                     }
                 />
-            </div>
+            </VerticalLayout>
         );
     }
 }
