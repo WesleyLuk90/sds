@@ -1,10 +1,10 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
-import { DefaultPage } from "../components/DefaultPage";
-import { loader } from "../components/Loader";
-import { InputDocumentType } from "../__generated__/globalTypes";
-import { DocumentTypeEditor } from "./components/DocumentTypeEditor";
-import { DocumentTypeRequests } from "./requests/DocumentTypeRequests";
+import { DefaultPage } from "../../components/DefaultPage";
+import { loader } from "../../components/Loader";
+import { InputDocumentType } from "../../__generated__/globalTypes";
+import { DocumentTypeEditor } from "../components/DocumentTypeEditor";
+import { DocumentTypeRequests } from "../requests/DocumentTypeRequests";
 
 interface State {
     documentType: InputDocumentType | null;

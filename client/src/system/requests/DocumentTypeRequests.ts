@@ -9,75 +9,67 @@ import {
     GetDocumentTypeVariables
 } from "./__generated__/GetDocumentType";
 import {
-    ListDocuments,
-    ListDocuments_documentTypes
-} from "./__generated__/ListDocuments";
-import {
     UpdateDocumentType,
     UpdateDocumentTypeVariables
 } from "./__generated__/UpdateDocumentType";
+import {
+    ListDocumentTypes_documentTypes,
+    ListDocumentTypes
+} from "./__generated__/ListDocumentTypes";
 
-const listQuery = gql`
-    query ListDocuments {
-        documentTypes {
+export const DOCUMENT_TYPE_SCHEMA = gql`
+    fragment DocumentTypeSchema on DocumentType {
+        id
+        name
+        fields {
             id
             name
-            fields {
-                id
-                name
-                type
-            }
+            type
         }
     }
 `;
 
-const createQuery = gql`
-    mutation CreateDocumentType($documentType: InputDocumentType!) {
-        createDocumentType(documentType: $documentType) {
-            id
-            name
-            fields {
-                id
-                name
-                type
+const listQuery =
+    gql`
+        query ListDocumentTypes {
+            documentTypes {
+                ...DocumentTypeSchema
             }
         }
-    }
-`;
+    ` + DOCUMENT_TYPE_SCHEMA;
 
-const updateQuery = gql`
-    mutation UpdateDocumentType($documentType: InputDocumentType!) {
-        updateDocumentType(documentType: $documentType) {
-            id
-            name
-            fields {
-                id
-                name
-                type
+const createQuery =
+    gql`
+        mutation CreateDocumentType($documentType: InputDocumentType!) {
+            createDocumentType(documentType: $documentType) {
+                ...DocumentTypeSchema
             }
         }
-    }
-`;
+    ` + DOCUMENT_TYPE_SCHEMA;
 
-const getQuery = gql`
-    query GetDocumentType($id: String!) {
-        documentType(id: $id) {
-            id
-            name
-            fields {
-                id
-                name
-                type
+const updateQuery =
+    gql`
+        mutation UpdateDocumentType($documentType: InputDocumentType!) {
+            updateDocumentType(documentType: $documentType) {
+                ...DocumentTypeSchema
             }
         }
-    }
-`;
+    ` + DOCUMENT_TYPE_SCHEMA;
 
-export type DocumentType = ListDocuments_documentTypes;
+const getQuery =
+    gql`
+        query GetDocumentType($id: String!) {
+            documentType(id: $id) {
+                ...DocumentTypeSchema
+            }
+        }
+    ` + DOCUMENT_TYPE_SCHEMA;
+
+export type DocumentType = ListDocumentTypes_documentTypes;
 
 export class DocumentTypeRequests {
     static async list(): Promise<DocumentType[]> {
-        const res = await GraphQlClient.query<ListDocuments>(listQuery);
+        const res = await GraphQlClient.query<ListDocumentTypes>(listQuery);
         return res.documentTypes;
     }
 

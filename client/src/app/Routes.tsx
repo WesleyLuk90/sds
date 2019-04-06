@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Route, Switch } from "react-router";
-import { ConfigurationPage } from "../system/ConfigurationPage";
+import { DocumentsRoutes } from "../system/DocumentsRoutes";
 import { DocumentTypesRoutes } from "../system/DocumentTypesRoutes";
 import { HomePage } from "./HomePage";
 
@@ -12,12 +12,8 @@ export class Routes extends React.Component {
                     path="/system/document-types"
                     component={DocumentTypesRoutes}
                 />
-                <Route
-                    path="/system/configuration"
-                    exact
-                    component={ConfigurationPage}
-                />
-                <Route path="/" exact component={HomePage} />
+                <Route path="/system/documents" component={DocumentsRoutes} />
+                <Route path="/" component={HomePage} />
             </Switch>
         );
     }
