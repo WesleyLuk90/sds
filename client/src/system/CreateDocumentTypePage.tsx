@@ -1,4 +1,5 @@
 import * as React from "react";
+import { RouteComponentProps, withRouter } from "react-router";
 import { DefaultPage } from "../components/DefaultPage";
 import { InputDocumentType } from "../__generated__/globalTypes";
 import { DocumentTypeEditor } from "./components/DocumentTypeEditor";
@@ -8,7 +9,10 @@ interface State {
     documentType: InputDocumentType;
 }
 
-export class CreateDocumentTypePage extends React.Component<{}, State> {
+export class BaseCreateDocumentTypePage extends React.Component<
+    RouteComponentProps<any>,
+    State
+> {
     state: State = {
         documentType: {
             id: "",
@@ -20,6 +24,9 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
     onCreate = async () => {
         const documentType = await DocumentTypeRequests.create(
             this.state.documentType
+        );
+        this.props.history.push(
+            `/system/document-types/edit/${documentType.id}`
         );
     };
 
@@ -36,3 +43,7 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
         );
     }
 }
+
+export const CreateDocumentTypePage = withRouter<RouteComponentProps<any>>(
+    BaseCreateDocumentTypePage
+);
