@@ -1,4 +1,6 @@
-import { FormControlLabel, Switch, TextField } from "@material-ui/core";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import TextField from "@material-ui/core/TextField";
 import * as React from "react";
 import * as styles from "./DerivedIdField.css";
 

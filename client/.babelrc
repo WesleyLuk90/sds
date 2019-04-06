@@ -10,25 +10,5 @@
                 }
             }
         ]
-    ],
-    "plugins": [
-        [
-            "import",
-            {
-                "libraryName": "@material-ui/core",
-                "libraryDirectory": "",
-                "camel2DashComponentName": false
-            },
-            "import-material-ui-core"
-        ],
-        [
-            "import",
-            {
-                "libraryName": "@material-ui/icons",
-                "libraryDirectory": "",
-                "camel2DashComponentName": false
-            },
-            "import-material-ui-icons"
-        ]
     ]
 }

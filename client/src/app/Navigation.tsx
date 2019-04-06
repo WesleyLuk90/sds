@@ -1,4 +1,7 @@
-import { Drawer, List, ListItem, ListItemText } from "@material-ui/core";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import * as React from "react";
 import { AppLink } from "./AppLink";
 import * as styles from "./Navigation.css";

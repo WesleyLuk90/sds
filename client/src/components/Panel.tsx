@@ -1,4 +1,4 @@
-import { Paper } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 import * as React from "react";
 import { theme } from "../app/Application";
 

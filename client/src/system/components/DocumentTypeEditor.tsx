@@ -1,10 +1,9 @@
-import {
-    Button,
-    ExpansionPanel,
-    ExpansionPanelDetails,
-    ExpansionPanelSummary
-} from "@material-ui/core";
-import { AddBox, ExpandMore } from "@material-ui/icons";
+import Button from "@material-ui/core/Button";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import AddBox from "@material-ui/icons/AddBox";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 import * as React from "react";
 import { theme } from "../../app/Application";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";

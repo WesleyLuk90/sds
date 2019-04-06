@@ -1,10 +1,8 @@
-import {
-    Table as MuiTable,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow
-} from "@material-ui/core";
+import MuiTable from "@material-ui/core/Typography";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import * as React from "react";
 
 interface Props<R> {

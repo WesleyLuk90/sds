@@ -1,10 +1,8 @@
-import { CssBaseline } from "@material-ui/core";
-import {
-    createGenerateClassName,
-    createMuiTheme,
-    jssPreset,
-    MuiThemeProvider
-} from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import createGenerateClassName from "@material-ui/core/styles/createGenerateClassName";
+import jssPreset from "@material-ui/core/styles/jssPreset";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { create } from "jss";
 import * as React from "react";
 import JssProvider from "react-jss/lib/JssProvider";

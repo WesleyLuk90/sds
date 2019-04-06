@@ -1,5 +1,6 @@
-import { IconButton, Paper } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
+import Edit from "@material-ui/icons/Edit";
 import * as React from "react";
 import { AppLink } from "../app/AppLink";
 import { Actions } from "../components/Actions";
