@@ -1,7 +1,7 @@
 import Divider from "@material-ui/core/Divider";
 import Paper from "@material-ui/core/Paper";
 import * as React from "react";
-import { theme } from "../app/Application";
+import { theme } from "../../app/Application";
 
 interface Props {
     footer?: React.ReactNode;

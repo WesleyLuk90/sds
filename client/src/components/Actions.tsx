@@ -4,10 +4,10 @@ import { RouteComponentProps, withRouter } from "react-router";
 import * as styles from "./Actions.css";
 
 interface Action {
-    icon: string;
-    label: string;
+    label: React.ReactNode;
     path?: string;
 }
+
 interface Props extends RouteComponentProps<any> {
     actions: Action[];
 }
@@ -23,11 +23,7 @@ export class BaseActions extends React.Component<Props> {
         return (
             <div className={styles.actions}>
                 {this.props.actions.map((action, i) => (
-                    <Button
-                        variant="contained"
-                        key={i}
-                        onClick={() => this.click(action)}
-                    >
+                    <Button key={i} onClick={() => this.click(action)}>
                         {action.label}
                     </Button>
                 ))}

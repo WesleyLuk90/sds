@@ -1,11 +1,12 @@
 import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
+import AddBox from "@material-ui/icons/AddBox";
 import Edit from "@material-ui/icons/Edit";
 import * as React from "react";
 import { AppLink } from "../app/AppLink";
 import { Actions } from "../components/Actions";
 import { DefaultPage } from "../components/DefaultPage";
 import { loader } from "../components/Loader";
+import { TablePanel } from "../components/panels/TablePanel";
 import { Table, TableColumn } from "../components/Table";
 import {
     DocumentType,
@@ -48,23 +49,29 @@ export class DocumentTypesPage extends React.Component<{}, State> {
     render() {
         return (
             <DefaultPage title="Document Types">
-                <Actions
-                    actions={[
-                        {
-                            icon: "plus",
-                            label: "New Document Type",
-                            path: "/system/document-types/create"
-                        }
-                    ]}
-                />
                 {loader(this.state.documentTypes, documentTypes => (
-                    <Paper>
+                    <TablePanel
+                        header={
+                            <Actions
+                                actions={[
+                                    {
+                                        label: (
+                                            <>
+                                                <AddBox /> New Document Type
+                                            </>
+                                        ),
+                                        path: "/system/document-types/create"
+                                    }
+                                ]}
+                            />
+                        }
+                    >
                         <Table
                             rows={documentTypes}
                             rowKey={t => t.id}
                             columns={COLUMNS}
                         />
-                    </Paper>
+                    </TablePanel>
                 ))}
             </DefaultPage>
         );

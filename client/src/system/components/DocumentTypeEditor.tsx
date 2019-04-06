@@ -8,7 +8,7 @@ import * as React from "react";
 import { theme } from "../../app/Application";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";
 import { VerticalLayout } from "../../components/layout/VerticalLayout";
-import { SavePanel } from "../../components/SavePanel";
+import { SavePanel } from "../../components/panels/SavePanel";
 import { SectionHeader } from "../../components/typograpy/SectionHeader";
 import { Title } from "../../components/typograpy/Title";
 import { InputDocumentType, InputField } from "../../__generated__/globalTypes";
