@@ -3,7 +3,7 @@ import { FieldType } from "../../src/query/DocumentType";
 import { QueryRoot } from "../../src/query/Schema";
 
 describe.integration("QueryRoot", () => {
-    it("should create and list", async () => {
+    it("should create update and list", async () => {
         const root = await QueryRoot.create();
 
         const type = await root.createDocumentType({
@@ -29,6 +29,15 @@ describe.integration("QueryRoot", () => {
             wait: true
         });
         expect(created.id).toBeTruthy();
+
+        created.values[0] = newValue("name", { text: "foo2" });
+
+        const updated = await root.updateDocument({
+            document: created,
+            wait: true
+        });
+
+        expect(updated).toEqual(created);
 
         const found = await root.listDocuments({ type: type.id });
         expect(found).toContainEqual(created);

@@ -24,6 +24,19 @@ export class DocumentService {
         return DocumentSerializer.deserialize(type, created);
     }
 
+    async update(
+        document: Document,
+        options: { wait?: boolean }
+    ): Promise<Document> {
+        const type = await this.documentTypeService.get(document.type);
+        const raw = DocumentSerializer.serialize(type, document);
+        const collection = this.collectionService.toCollection(type);
+        await this.storage.update(collection, raw, {
+            block: !!options.wait
+        });
+        return DocumentSerializer.deserialize(type, raw);
+    }
+
     async list(typeId: string): Promise<Document[]> {
         const documentType = await this.documentTypeService.get(typeId);
         const collection = this.collectionService.toCollection(documentType);

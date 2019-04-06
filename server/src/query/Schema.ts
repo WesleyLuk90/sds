@@ -58,6 +58,13 @@ export class QueryRoot {
         return this.documentService.create(args.document, { wait: args.wait });
     }
 
+    async updateDocument(args: {
+        document: Document;
+        wait?: boolean;
+    }): Promise<Document> {
+        return this.documentService.update(args.document, { wait: args.wait });
+    }
+
     async listDocuments(args: { type: string }): Promise<Document[]> {
         return this.documentService.list(args.type);
     }
