@@ -1,4 +1,3 @@
-import Button from "@material-ui/core/Button";
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 import { DefaultPage } from "../components/DefaultPage";
@@ -26,7 +25,7 @@ export class EditDocumentTypePage extends React.Component<
     }
 
     onUpdate = async () => {
-        await DocumentTypeRequests.create(this.state.documentType);
+        await DocumentTypeRequests.update(this.state.documentType);
     };
 
     render() {
@@ -38,11 +37,8 @@ export class EditDocumentTypePage extends React.Component<
                             new={false}
                             documentType={documentType}
                             onChange={d => this.setState({ documentType: d })}
-                        >
-                            <Button variant="contained" onClick={this.onUpdate}>
-                                Update
-                            </Button>
-                        </DocumentTypeEditor>
+                            onSave={this.onUpdate}
+                        />
                     </div>
                 ))}
             </DefaultPage>

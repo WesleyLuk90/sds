@@ -1,14 +1,14 @@
 import Button from "@material-ui/core/Button";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import AddBox from "@material-ui/icons/AddBox";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import * as React from "react";
 import { theme } from "../../app/Application";
 import { DerivedIdField } from "../../components/forms/DerivedIdField";
 import { VerticalLayout } from "../../components/layout/VerticalLayout";
-import { Panel } from "../../components/Panel";
+import { SavePanel } from "../../components/SavePanel";
 import { SectionHeader } from "../../components/typograpy/SectionHeader";
 import { Title } from "../../components/typograpy/Title";
 import { InputDocumentType, InputField } from "../../__generated__/globalTypes";
@@ -19,22 +19,26 @@ interface Props {
     new: boolean;
     documentType: InputDocumentType;
     onChange: (documentType: InputDocumentType) => void;
+    onSave: () => Promise<void>;
 }
 
 interface State {
     expanded: Set<number>;
     newFields: Set<number>;
+    dirty: boolean;
 }
 
 export class DocumentTypeEditor extends React.Component<Props, State> {
     state: State = {
         expanded: new Set(),
-        newFields: new Set()
+        newFields: new Set(),
+        dirty: false
     };
 
     updateDocument(
         updater: (documentType: InputDocumentType) => InputDocumentType
     ) {
+        this.setState({ dirty: true });
         this.props.onChange(updater(this.props.documentType));
     }
 
@@ -82,7 +86,7 @@ export class DocumentTypeEditor extends React.Component<Props, State> {
     render() {
         const { name, id, fields } = this.props.documentType;
         return (
-            <Panel>
+            <SavePanel onSave={this.props.onSave} dirty={this.state.dirty}>
                 <VerticalLayout>
                     <SectionHeader>Document Type Properties</SectionHeader>
                     <DerivedIdField
@@ -121,9 +125,8 @@ export class DocumentTypeEditor extends React.Component<Props, State> {
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     ))}
-                    {this.props.children}
                 </VerticalLayout>
-            </Panel>
+            </SavePanel>
         );
     }
 }

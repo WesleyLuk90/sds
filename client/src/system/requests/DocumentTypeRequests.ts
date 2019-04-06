@@ -1,6 +1,9 @@
 import { gql, GraphQlClient } from "../../http/GraphQlClient";
 import { InputDocumentType } from "../../__generated__/globalTypes";
-import { CreateDocumentTypeVariables } from "./__generated__/CreateDocumentType";
+import {
+    CreateDocumentType,
+    CreateDocumentTypeVariables
+} from "./__generated__/CreateDocumentType";
 import {
     GetDocumentType,
     GetDocumentTypeVariables
@@ -9,6 +12,10 @@ import {
     ListDocuments,
     ListDocuments_documentTypes
 } from "./__generated__/ListDocuments";
+import {
+    UpdateDocumentType,
+    UpdateDocumentTypeVariables
+} from "./__generated__/UpdateDocumentType";
 
 const listQuery = gql`
     query ListDocuments {
@@ -28,6 +35,26 @@ const createQuery = gql`
     mutation CreateDocumentType($documentType: InputDocumentType!) {
         createDocumentType(documentType: $documentType) {
             id
+            name
+            fields {
+                id
+                name
+                type
+            }
+        }
+    }
+`;
+
+const updateQuery = gql`
+    mutation UpdateDocumentType($documentType: InputDocumentType!) {
+        updateDocumentType(documentType: $documentType) {
+            id
+            name
+            fields {
+                id
+                name
+                type
+            }
         }
     }
 `;
@@ -62,10 +89,29 @@ export class DocumentTypeRequests {
         return res.documentType;
     }
 
-    static async create(documentType: InputDocumentType): Promise<void> {
+    static async create(
+        documentType: InputDocumentType
+    ): Promise<InputDocumentType> {
         const args: CreateDocumentTypeVariables = {
             documentType
         };
-        await GraphQlClient.query(createQuery, args);
+        const response = await GraphQlClient.query<CreateDocumentType>(
+            createQuery,
+            args
+        );
+        return response.createDocumentType;
+    }
+
+    static async update(
+        documentType: InputDocumentType
+    ): Promise<InputDocumentType> {
+        const args: UpdateDocumentTypeVariables = {
+            documentType
+        };
+        const response = await GraphQlClient.query<UpdateDocumentType>(
+            updateQuery,
+            args
+        );
+        return response.updateDocumentType;
     }
 }

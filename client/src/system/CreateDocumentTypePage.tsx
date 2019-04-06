@@ -1,4 +1,3 @@
-import Button from "@material-ui/core/Button";
 import * as React from "react";
 import { DefaultPage } from "../components/DefaultPage";
 import { InputDocumentType } from "../__generated__/globalTypes";
@@ -31,11 +30,8 @@ export class CreateDocumentTypePage extends React.Component<{}, State> {
                     new
                     documentType={this.state.documentType}
                     onChange={d => this.setState({ documentType: d })}
-                >
-                    <Button variant="contained" onClick={this.onCreate}>
-                        Create
-                    </Button>
-                </DocumentTypeEditor>
+                    onSave={this.onCreate}
+                />
             </DefaultPage>
         );
     }
