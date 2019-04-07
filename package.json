@@ -10,7 +10,7 @@
         "dev:client": "webpack --config client/webpack.dev.config.js",
         "dev:server": "ts-node server/src/dev-index.ts --no-webpack",
         "build": "yarn generate && yarn build:client && yarn build:server",
-        "build:client": "tsc -p client/tsconfig.json",
+        "build:client": "yarn package:client && tsc -p client/tsconfig.json",
         "build:server": "tsc -p server/tsconfig.json",
         "package:client": "webpack --config client/webpack.config.js",
         "start:server": "node server/dist/index.js",
