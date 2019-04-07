@@ -8,15 +8,23 @@ import { DocumentType } from "../requests/DocumentTypeRequests";
 import { Table, TableColumn } from "../../components/Table";
 import { AppLink } from "../../app/AppLink";
 import AddBox from "@material-ui/icons/AddBox";
-import Button from "@material-ui/core/Button";
 import { Actions } from "../../components/Actions";
+import IconButton from "@material-ui/core/IconButton";
+import Edit from "@material-ui/icons/Edit";
 
 interface State {
     docs: { documents: Document[]; type: DocumentType } | null;
 }
 
 const COLUMNS: TableColumn<Document>[] = [
-    new TableColumn("id", "ID", d => d.id)
+    new TableColumn("id", "ID", d => d.id),
+    new TableColumn("edit", "Edit", d => (
+        <AppLink to={`/system/documents/edit/${d.type}/${d.id}`}>
+            <IconButton>
+                <Edit />
+            </IconButton>
+        </AppLink>
+    ))
 ];
 
 export class DocumentsListPage extends React.Component<

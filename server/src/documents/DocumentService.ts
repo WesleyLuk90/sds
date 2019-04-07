@@ -45,4 +45,11 @@ export class DocumentService {
             DocumentSerializer.deserialize(documentType, r)
         );
     }
+
+    async get(typeId: string, id: string): Promise<Document> {
+        const documentType = await this.documentTypeService.get(typeId);
+        const collection = this.collectionService.toCollection(documentType);
+        const raw = await this.storage.get(collection, id);
+        return DocumentSerializer.deserialize(documentType, raw);
+    }
 }

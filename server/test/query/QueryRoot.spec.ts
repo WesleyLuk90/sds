@@ -42,5 +42,8 @@ describeIntegration("QueryRoot", () => {
 
         const found = await root.listDocuments({ type: type.id });
         expect(found).toContainEqual(created);
+
+        const got = await root.getDocument({ type: type.id, id: updated.id });
+        expect(got).toEqual(created);
     });
 });

@@ -12,6 +12,7 @@ import { DocumentType, DocumentTypeSchema } from "./DocumentType";
 
 const QuerySchema = `
 type Query {
+    getDocument(type: String!, id: String!): Document!
     listDocuments(type: String!): [Document!]!
     documentTypes: [DocumentType!]!
     documentType(id: String!): DocumentType!
@@ -20,6 +21,7 @@ type Query {
 const MutationSchema = `
 type Mutation {
     createDocument(document: InputDocument, wait: Boolean): Document!
+    updateDocument(document: InputDocument, wait: Boolean): Document!
     createDocumentType(documentType: InputDocumentType): DocumentType!
     updateDocumentType(documentType: InputDocumentType): DocumentType!
 }`;
@@ -63,6 +65,10 @@ export class QueryRoot {
         wait?: boolean;
     }): Promise<Document> {
         return this.documentService.update(args.document, { wait: args.wait });
+    }
+
+    async getDocument(args: { type: string; id: string }): Promise<Document> {
+        return this.documentService.get(args.type, args.id);
     }
 
     async listDocuments(args: { type: string }): Promise<Document[]> {
