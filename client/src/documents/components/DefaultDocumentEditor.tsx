@@ -16,6 +16,7 @@ interface Props {
     type: DocumentType;
     document: InputDocument;
     onChange: (doc: InputDocument) => void;
+    onSave: () => Promise<void>;
 }
 
 export class DefaultDocumentEditor extends React.Component<Props> {
@@ -39,7 +40,7 @@ export class DefaultDocumentEditor extends React.Component<Props> {
 
     render() {
         return (
-            <SavePanel dirty onSave={async () => {}}>
+            <SavePanel dirty onSave={this.props.onSave}>
                 <VerticalLayout>
                     {this.props.type.fields.map(f => this.renderField(f))}
                 </VerticalLayout>

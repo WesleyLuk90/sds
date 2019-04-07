@@ -9,6 +9,7 @@ import { loader } from "../../components/Loader";
 import { DefaultPage } from "../../components/DefaultPage";
 import { Documents } from "../../documents/Documents";
 import { DefaultDocumentEditor } from "../../documents/components/DefaultDocumentEditor";
+import { DocumentRequests } from "../requests/DocumentRequests";
 
 interface State {
     type: DocumentType | null;
@@ -24,12 +25,17 @@ class CreateDocumentComponent extends React.Component<
         this.setState({ document });
     };
 
+    onSave = async () => {
+        await DocumentRequests.create(this.state.document);
+    };
+
     render() {
         return (
             <DefaultDocumentEditor
                 document={this.state.document}
                 type={this.props.type}
                 onChange={this.onChange}
+                onSave={this.onSave}
             />
         );
     }

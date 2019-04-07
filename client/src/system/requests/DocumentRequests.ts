@@ -6,6 +6,10 @@ import {
     ListDocumentsVariables,
     ListDocuments_listDocuments
 } from "./__generated__/ListDocuments";
+import {
+    CreateDocument,
+    CreateDocumentVariables
+} from "./__generated__/CreateDocument";
 
 const listQuery =
     gql`
@@ -25,7 +29,7 @@ const listQuery =
         }
     ` + DOCUMENT_TYPE_SCHEMA;
 
-const create = gql`
+const createQuery = gql`
     mutation CreateDocument($document: InputDocument!) {
         createDocument(document: $document) {
             id
@@ -42,6 +46,17 @@ const create = gql`
 export type Document = ListDocuments_listDocuments;
 
 export class DocumentRequests {
+    static async create(document: InputDocument): Promise<Document> {
+        const args: CreateDocumentVariables = {
+            document
+        };
+        const res = await GraphQlClient.query<CreateDocument>(
+            createQuery,
+            args
+        );
+        return res.createDocument;
+    }
+
     static async list(
         type: string
     ): Promise<{ documents: Document[]; type: DocumentType }> {
