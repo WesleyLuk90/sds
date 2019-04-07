@@ -6,7 +6,8 @@
         "module": "commonjs",
         "target": "es5",
         "moduleResolution": "node",
-        "types": []
+        "types": [],
+        "strictNullChecks": true
     },
     "include": ["./src/**/*"]
 }

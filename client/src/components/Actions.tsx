@@ -14,7 +14,7 @@ interface Props extends RouteComponentProps<any> {
 
 export class BaseActions extends React.Component<Props> {
     click(action: Action) {
-        if (action.path !== null) {
+        if (action.path != null) {
             this.props.history.push(action.path);
         }
     }

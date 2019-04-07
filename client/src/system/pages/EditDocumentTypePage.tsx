@@ -24,8 +24,8 @@ export class EditDocumentTypePage extends React.Component<
         this.setState({ documentType: type });
     }
 
-    onUpdate = async () => {
-        await DocumentTypeRequests.update(this.state.documentType);
+    onUpdate = async (documentType: InputDocumentType) => {
+        await DocumentTypeRequests.update(documentType);
     };
 
     render() {
@@ -37,7 +37,7 @@ export class EditDocumentTypePage extends React.Component<
                             new={false}
                             documentType={documentType}
                             onChange={d => this.setState({ documentType: d })}
-                            onSave={this.onUpdate}
+                            onSave={() => this.onUpdate(documentType)}
                         />
                     </div>
                 ))}

@@ -2,6 +2,7 @@ import { Document } from "../query/Document";
 import { DocumentType } from "../query/DocumentType";
 import { RawDocument } from "../storage/Storage";
 import { forType } from "./FieldTypeHandler";
+import { checkNotNull } from "../utils/checkNotNull";
 
 export class DocumentSerializer {
     static serialize(
@@ -19,7 +20,7 @@ export class DocumentSerializer {
 
     static deserialize(documentType: DocumentType, raw: RawDocument): Document {
         const document: Document = {
-            id: raw.id,
+            id: checkNotNull(raw.id),
             type: documentType.id,
             values: []
         };

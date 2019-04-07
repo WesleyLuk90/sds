@@ -1,5 +1,6 @@
 import { Client } from "@elastic/elasticsearch";
 import { Collection } from "./Collection";
+import { checkNotNull } from "../utils/checkNotNull";
 
 export interface RawDocument {
     id?: string;
@@ -14,14 +15,14 @@ const DEFAULT_OPTIONS: Options = {
 };
 
 function mapError(
-    e: { body?: { error?: { type?: string } } },
+    e: { body?: { error?: { type?: string } } } & Error,
     type: string,
     newError: Error
-) {
+): Error {
     if (e.body && e.body.error && e.body.error.type === type) {
-        throw newError;
+        return newError;
     }
-    throw e;
+    return e;
 }
 
 export class Storage {
@@ -81,7 +82,11 @@ export class Storage {
             document.id = request.body._id;
             return document;
         } catch (e) {
-            mapError(e, "index_not_found_exception", new Error("Duplicate id"));
+            throw mapError(
+                e,
+                "index_not_found_exception",
+                new Error("Duplicate id")
+            );
         }
     }
 
@@ -104,7 +109,10 @@ export class Storage {
     ) {
         await this.client.update({
             index: collection.getId(),
-            id: document.id,
+            id: checkNotNull(
+                document.id,
+                "ID is required to update a document"
+            ),
             type: "_doc",
             body: {
                 doc: document

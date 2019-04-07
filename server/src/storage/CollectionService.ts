@@ -6,23 +6,14 @@ import {
     CollectionType
 } from "./Collection";
 
+const FIELD_TYPE_MAP: { [key in FieldType]: CollectionFieldType } = {
+    id: CollectionFieldType.KEYWORD,
+    text: CollectionFieldType.TEXT
+};
+
 function convertFieldType(fieldType: FieldType): CollectionFieldType {
-    switch (fieldType) {
-        case FieldType.ID:
-            return CollectionFieldType.KEYWORD;
-        case FieldType.TEXT:
-            return CollectionFieldType.TEXT;
-    }
-    throw new Error(`Invalid field type ${fieldType}`);
+    return FIELD_TYPE_MAP[fieldType];
 }
-
-function validateFieldTypes() {
-    Object.keys(FieldType)
-        .map(key => FieldType[key as any])
-        .forEach(convertFieldType);
-}
-
-validateFieldTypes();
 
 export class CollectionService {
     private toCollectionField(field: Field): CollectionField {

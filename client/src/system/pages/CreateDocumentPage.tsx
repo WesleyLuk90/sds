@@ -11,11 +11,11 @@ import { Documents } from "../../documents/Documents";
 import { DefaultDocumentEditor } from "../../documents/components/DefaultDocumentEditor";
 
 interface State {
-    type: DocumentType;
+    type: DocumentType | null;
 }
 
 class CreateDocumentComponent extends React.Component<
-    State,
+    { type: DocumentType },
     { document: InputDocument }
 > {
     state = { document: Documents.newDocument(this.props.type) };
@@ -47,7 +47,7 @@ export class CreateDocumentPage extends React.Component<
     render() {
         return loader(this.state.type, type => (
             <DefaultPage title={`New ${type.name}`}>
-                <CreateDocumentComponent type={this.state.type} />
+                <CreateDocumentComponent type={type} />
             </DefaultPage>
         ));
     }
