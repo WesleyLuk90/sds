@@ -14,7 +14,8 @@ import {
 } from "./__generated__/UpdateDocumentType";
 import {
     ListDocumentTypes_documentTypes,
-    ListDocumentTypes
+    ListDocumentTypes,
+    ListDocumentTypes_documentTypes_fields
 } from "./__generated__/ListDocumentTypes";
 
 export const DOCUMENT_TYPE_SCHEMA = gql`
@@ -66,6 +67,7 @@ const getQuery =
     ` + DOCUMENT_TYPE_SCHEMA;
 
 export type DocumentType = ListDocumentTypes_documentTypes;
+export type DocumentField = ListDocumentTypes_documentTypes_fields;
 
 export class DocumentTypeRequests {
     static async list(): Promise<DocumentType[]> {

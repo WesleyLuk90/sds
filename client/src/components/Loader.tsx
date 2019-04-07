@@ -6,7 +6,11 @@ export function loader<T>(
     render: (value: T) => React.ReactNode
 ): React.ReactNode {
     if (value == null) {
-        return <CircularProgress />;
+        return (
+            <div style={{ textAlign: "center", padding: 20 }}>
+                <CircularProgress size={80} />
+            </div>
+        );
     } else {
         return render(value);
     }
