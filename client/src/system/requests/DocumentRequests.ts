@@ -39,10 +39,10 @@ const create = gql`
     }
 `;
 
-type Document = ListDocuments_listDocuments;
+export type Document = ListDocuments_listDocuments;
 
 export class DocumentRequests {
-    async list(
+    static async list(
         type: string
     ): Promise<{ documents: Document[]; type: DocumentType }> {
         const args: ListDocumentsVariables = {
