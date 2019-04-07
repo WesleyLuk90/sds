@@ -10,6 +10,7 @@
         "isolatedModules": true,
         "types": [],
         "lib": ["dom", "es6", "dom.iterable", "es2016.array.include"],
+        "esModuleInterop": true,
         "strictNullChecks": true
     },
     "include": ["./src/**/*"],

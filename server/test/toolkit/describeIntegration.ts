@@ -1,4 +1,4 @@
-describe.integration = function(name, test) {
+export function describeIntegration(name: string, test: () => void) {
     if (process.env["TEST_PROFILE"] === "INTEGRATION" || process.env["CI"]) {
         describe(name, test);
     } else {
@@ -6,4 +6,4 @@ describe.integration = function(name, test) {
             it("skipped integration test", () => {});
         });
     }
-};
+}

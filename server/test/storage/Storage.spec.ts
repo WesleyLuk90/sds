@@ -4,8 +4,9 @@ import {
     CollectionFieldType
 } from "../../src/storage/Collection";
 import { RawDocument, Storage } from "../../src/storage/Storage";
+import { describeIntegration } from "../toolkit/describeIntegration";
 
-describe.integration("Storage", () => {
+describeIntegration("Storage", () => {
     const TEST_COLLECTION_TYPE: any = "test";
     const testCollection = new Collection(TEST_COLLECTION_TYPE, "test-foo")
         .addField(new CollectionField(CollectionFieldType.KEYWORD, "first"))
@@ -55,7 +56,7 @@ describe.integration("Storage", () => {
 
     it("should create document with generated id", async () => {
         const document = {
-            id: null,
+            id: undefined,
             first: "hello"
         } as RawDocument;
         const created = await storage.create(testCollection, document, {
@@ -72,7 +73,7 @@ describe.integration("Storage", () => {
 
     it("should get document with generated id", async () => {
         const document = {
-            id: null,
+            id: undefined,
             first: "hello"
         } as RawDocument;
         const created = await storage.create(testCollection, document);

@@ -1,8 +1,9 @@
 import { newValue } from "../../src/documents/DefaultValue";
 import { FieldType } from "../../src/query/DocumentType";
 import { QueryRoot } from "../../src/query/Schema";
+import { describeIntegration } from "../toolkit/describeIntegration";
 
-describe.integration("QueryRoot", () => {
+describeIntegration("QueryRoot", () => {
     it("should create update and list", async () => {
         const root = await QueryRoot.create();
 

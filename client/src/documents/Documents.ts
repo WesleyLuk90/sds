@@ -27,4 +27,15 @@ export class Documents {
             ...value
         };
     }
+
+    static updateValue(
+        field: DocumentField,
+        value: InputDocumentValue,
+        document: InputDocument
+    ): InputDocument {
+        const newValues = document.values.filter(v => v.fieldId !== field.id);
+        newValues.push(value);
+
+        return { ...document, values: newValues };
+    }
 }

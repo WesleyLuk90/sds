@@ -10,6 +10,7 @@ import {
 import { SavePanel } from "../../components/panels/SavePanel";
 import { DefaultFieldEditor } from "./DefaultFieldEditor";
 import { VerticalLayout } from "../../components/layout/VerticalLayout";
+import { Documents } from "../Documents";
 
 interface Props {
     type: DocumentType;
@@ -19,7 +20,7 @@ interface Props {
 
 export class DefaultDocumentEditor extends React.Component<Props> {
     renderField(f: DocumentField) {
-        const value = this.props.document.values.find(v => v.id === f.id);
+        const value = this.props.document.values.find(v => v.fieldId === f.id);
         return (
             <DefaultFieldEditor
                 key={f.id}
@@ -30,7 +31,11 @@ export class DefaultDocumentEditor extends React.Component<Props> {
         );
     }
 
-    onChange(f: DocumentField, newValue: InputDocumentValue) {}
+    onChange(f: DocumentField, newValue: InputDocumentValue) {
+        this.props.onChange(
+            Documents.updateValue(f, newValue, this.props.document)
+        );
+    }
 
     render() {
         return (

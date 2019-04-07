@@ -20,7 +20,9 @@ class CreateDocumentComponent extends React.Component<
 > {
     state = { document: Documents.newDocument(this.props.type) };
 
-    onChange = (document: InputDocument) => this.setState({ document });
+    onChange = (document: InputDocument) => {
+        this.setState({ document });
+    };
 
     render() {
         return (
