@@ -4,7 +4,7 @@ import { InputDocument } from "../../__generated__/globalTypes";
 import {
     ListDocuments,
     ListDocumentsVariables,
-    ListDocuments_listDocuments
+    ListDocuments_documents
 } from "./__generated__/ListDocuments";
 import {
     CreateDocument,
@@ -76,7 +76,7 @@ const getQuery =
     DOCUMENT_TYPE_SCHEMA +
     DOCUMENT_SCHEMA;
 
-export type Document = ListDocuments_listDocuments;
+export type Document = ListDocuments_documents;
 
 export class DocumentRequests {
     static async create(document: InputDocument): Promise<Document> {
