@@ -24,6 +24,8 @@ export const DOCUMENT_SCHEMA = gql`
             fieldId
             text
             id
+            number
+            tags
         }
     }
 `;
@@ -31,7 +33,7 @@ export const DOCUMENT_SCHEMA = gql`
 const listQuery =
     gql`
         query ListDocuments($type: String!) {
-            listDocuments(type: $type) {
+            documents(type: $type) {
                 ...DocumentSchema
             }
             documentType(id: $type) {
@@ -63,7 +65,7 @@ const updateQuery =
 const getQuery =
     gql`
         query GetDocument($type: String!, $id: String!) {
-            getDocument(type: $type, id: $id) {
+            document(type: $type, id: $id) {
                 ...DocumentSchema
             }
             documentType(id: $type) {
@@ -107,7 +109,7 @@ export class DocumentRequests {
         };
         const res = await GraphQlClient.query<ListDocuments>(listQuery, args);
         return {
-            documents: res.listDocuments,
+            documents: res.documents,
             type: res.documentType
         };
     }
@@ -122,7 +124,7 @@ export class DocumentRequests {
         };
         const res = await GraphQlClient.query<GetDocument>(getQuery, args);
         return {
-            document: res.getDocument,
+            document: res.document,
             type: res.documentType
         };
     }

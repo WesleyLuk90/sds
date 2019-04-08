@@ -8,7 +8,9 @@ import {
 
 const FIELD_TYPE_MAP: { [key in FieldType]: CollectionFieldType } = {
     id: CollectionFieldType.KEYWORD,
-    text: CollectionFieldType.TEXT
+    text: CollectionFieldType.TEXT,
+    number: CollectionFieldType.DOUBLE,
+    tags: CollectionFieldType.KEYWORD
 };
 
 function convertFieldType(fieldType: FieldType): CollectionFieldType {

@@ -26,6 +26,7 @@ export class FieldEditor extends React.Component<Props> {
                     new={this.props.new}
                 />
                 <FieldTypeSelector
+                    new={this.props.new}
                     value={type}
                     onChange={type =>
                         this.props.onChange({ ...this.props.field, type })

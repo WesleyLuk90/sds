@@ -3,10 +3,10 @@ import * as React from "react";
 
 export interface TextInputProps {
     label: string;
-    placeholder?: string;
     value: string;
-    disabled?: boolean;
     onChange: (newValue: string) => void;
+    placeholder?: string;
+    disabled?: boolean;
 }
 
 export class TextInput extends React.Component<TextInputProps> {
@@ -15,6 +15,7 @@ export class TextInput extends React.Component<TextInputProps> {
     render() {
         return (
             <TextField
+                fullWidth
                 label={this.props.label}
                 disabled={this.props.disabled}
                 placeholder={this.props.placeholder}

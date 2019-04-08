@@ -24,6 +24,8 @@ export class Documents {
             fieldId: field.id,
             id: "",
             text: "",
+            number: 0,
+            tags: [],
             ...value
         };
     }

@@ -6,6 +6,7 @@ import * as React from "react";
 import { FieldType } from "../../__generated__/globalTypes";
 
 interface Props {
+    new: boolean;
     value: FieldType;
     onChange: (type: FieldType) => void;
 }
@@ -27,7 +28,11 @@ export class FieldTypeSelector extends React.Component<Props> {
         return (
             <FormControl style={{ width: 400 }}>
                 <InputLabel>Field Type</InputLabel>
-                <Select value={this.props.value} onChange={this.onChange}>
+                <Select
+                    value={this.props.value}
+                    onChange={this.onChange}
+                    disabled={!this.props.new}
+                >
                     {this.options().map(o => (
                         <MenuItem value={o} key={o}>
                             {o}

@@ -3,7 +3,6 @@ import { Field, FieldType } from "../query/DocumentType";
 import { newValue } from "./DefaultValue";
 
 interface FieldTypeImplementation {
-    type: FieldType;
     defaultRawValue(): any;
     toRaw(value: DocumentValue): any;
     toValue(field: Field, raw: any): DocumentValue;
@@ -28,18 +27,26 @@ export class FieldTypeHandler {
         }
     }
 }
-const types: { [fieldType: string]: FieldTypeImplementation } = {
+const types: { [key in FieldType]: FieldTypeImplementation } = {
     text: {
-        type: FieldType.TEXT,
         defaultRawValue: () => "",
         toRaw: (value: DocumentValue) => value.text,
         toValue: (field, raw) => newValue(field.id, { text: raw })
     },
     id: {
-        type: FieldType.ID,
         defaultRawValue: () => "",
         toRaw: (value: DocumentValue) => value.id,
         toValue: (field, raw) => newValue(field.id, { id: raw })
+    },
+    number: {
+        defaultRawValue: () => 0,
+        toRaw: (value: DocumentValue) => value.number,
+        toValue: (field, raw) => newValue(field.id, { number: raw })
+    },
+    tags: {
+        defaultRawValue: () => [],
+        toRaw: (value: DocumentValue) => value.tags,
+        toValue: (field, raw) => newValue(field.id, { tags: raw })
     }
 };
 

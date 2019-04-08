@@ -8,7 +8,9 @@ export function newValue(
         {
             fieldId,
             text: "",
-            id: ""
+            id: "",
+            number: 0,
+            tags: []
         },
         values
     );

@@ -12,7 +12,13 @@ interface Props {
 export class DefaultPage extends React.Component<Props> {
     render() {
         return (
-            <div style={{ padding: theme.spacing.unit * 3 }}>
+            <div
+                style={{
+                    padding: theme.spacing.unit * 3,
+                    maxHeight: "100vh",
+                    overflowY: "auto"
+                }}
+            >
                 <AppBar position="absolute" className={styles.appBar}>
                     <Toolbar>
                         <Typography component="h1" variant="h6" color="inherit">

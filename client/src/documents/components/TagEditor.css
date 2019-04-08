@@ -1,0 +1,13 @@
+:local(.input) {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+}
+:local(.textInput) {
+    width: 300px;
+    flex: 1 0 auto;
+}
+
+:local(.chip) {
+    margin-right: 4px;
+}

@@ -1,3 +1,5 @@
+import { FieldValidator } from "../documents/FieldValidator";
+
 export enum CollectionType {
     SYSTEM = "system",
     USER = "user"
@@ -5,26 +7,22 @@ export enum CollectionType {
 
 export enum CollectionFieldType {
     KEYWORD = "keyword",
-    TEXT = "text"
+    TEXT = "text",
+    LONG = "long",
+    DOUBLE = "double"
 }
 
 export class CollectionField {
     constructor(readonly type: CollectionFieldType, readonly id: string) {
-        if (!ID_REGEX.test(id)) {
-            throw new Error(`Invalid field id ${id}`);
-        }
+        FieldValidator.validateId(id);
     }
 }
-
-const ID_REGEX = /^[a-z][a-z0-9-]{3,}$/;
 
 export class Collection {
     private fields: CollectionField[] = [];
 
     constructor(private collection_type: CollectionType, private id: string) {
-        if (!ID_REGEX.test(id)) {
-            throw new Error(`Invalid collection id ${id}`);
-        }
+        FieldValidator.validateId(id);
     }
 
     getId() {

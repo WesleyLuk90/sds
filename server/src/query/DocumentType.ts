@@ -26,6 +26,8 @@ type Field {
 enum FieldType {
     text
     id
+    number
+    tags
 }`;
 
 export interface Field {
@@ -42,5 +44,7 @@ export interface DocumentType {
 
 export enum FieldType {
     TEXT = "text",
-    ID = "id"
+    ID = "id",
+    NUMBER = "number",
+    TAGS = "tags"
 }

@@ -1,3 +1,5 @@
+import { FieldType } from "./DocumentType";
+
 export const DocumentSchema = `
 type Document {
     id: ID!
@@ -9,7 +11,10 @@ type DocumentValue {
     fieldId: ID!
     text: String!
     id: String!
+    number: Float!
+    tags: [String!]!
 }
+
 input InputDocument {
     id: ID!
     type: String!
@@ -20,6 +25,8 @@ input InputDocumentValue {
     fieldId: ID!
     text: String!
     id: String!
+    number: Float!
+    tags: [String!]!
 }
 `;
 
@@ -33,4 +40,6 @@ export interface DocumentValue {
     fieldId: string;
     text: string;
     id: string;
+    number: number;
+    tags: string[];
 }

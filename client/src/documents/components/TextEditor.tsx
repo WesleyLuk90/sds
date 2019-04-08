@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FieldEditorProps } from "./FieldEditorProps";
-import TextField from "@material-ui/core/TextField";
 import { Documents } from "../Documents";
 import { TextInput } from "../../components/forms/TextInput";
 

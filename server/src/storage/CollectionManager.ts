@@ -34,18 +34,16 @@ export class CollectionManager {
     }
 
     async create(documentType: DocumentType) {
+        const collection = this.collectionService.toCollection(documentType);
         await this.storage.create(DOCUMENT_TYPES_COLLECTION, documentType);
-        await this.storage.updateCollection(
-            this.collectionService.toCollection(documentType)
-        );
+        await this.storage.updateCollection(collection);
         return documentType;
     }
 
     async update(documentType: DocumentType) {
+        const collection = this.collectionService.toCollection(documentType);
         await this.storage.update(DOCUMENT_TYPES_COLLECTION, documentType);
-        await this.storage.updateCollection(
-            this.collectionService.toCollection(documentType)
-        );
+        await this.storage.updateCollection(collection);
         return documentType;
     }
 }

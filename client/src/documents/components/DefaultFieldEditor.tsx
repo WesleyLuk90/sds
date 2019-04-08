@@ -5,6 +5,8 @@ import { FieldEditorProps } from "./FieldEditorProps";
 import { TextEditor } from "./TextEditor";
 import { IdEditor } from "./IdEditor";
 import { Documents } from "../Documents";
+import { NumberEditor } from "./NumberEditor";
+import { TagEditor } from "./TagEditor";
 
 interface Props {
     value?: InputDocumentValue | null;
@@ -16,7 +18,9 @@ const EDITORS: {
     [key in FieldType]: React.JSXElementConstructor<FieldEditorProps>
 } = {
     id: IdEditor,
-    text: TextEditor
+    text: TextEditor,
+    number: NumberEditor,
+    tags: TagEditor
 };
 
 export class DefaultFieldEditor extends React.Component<Props> {
