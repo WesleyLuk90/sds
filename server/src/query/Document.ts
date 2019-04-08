@@ -1,18 +1,8 @@
-import { FieldType } from "./DocumentType";
-
 export const DocumentSchema = `
 type Document {
     id: ID!
     type: String!
     values: [DocumentValue!]!
-}
-
-type DocumentValue {
-    fieldId: ID!
-    text: String!
-    id: String!
-    number: Float!
-    tags: [String!]!
 }
 
 input InputDocument {
@@ -21,12 +11,22 @@ input InputDocument {
     values: [InputDocumentValue!]!
 }
 
+type DocumentValue {
+    fieldId: ID!
+    text: String!
+    id: String!
+    number: Float!
+    tags: [String!]!
+    option: Int
+}
+
 input InputDocumentValue {
     fieldId: ID!
     text: String!
     id: String!
     number: Float!
     tags: [String!]!
+    option: Int
 }
 `;
 
@@ -42,4 +42,5 @@ export interface DocumentValue {
     id: string;
     number: number;
     tags: string[];
+    option: number | null;
 }

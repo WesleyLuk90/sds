@@ -5,22 +5,34 @@ input InputDocumentType {
     fields: [InputField!]!
 }
 
-input InputField {
-    id: ID!
-    name: String!
-    type: FieldType!
-}
-
 type DocumentType {
     id: ID!
     name: String!
     fields: [Field!]!
 }
 
+input InputField {
+    id: ID!
+    name: String!
+    type: FieldType!
+    options: [InputOption!]!
+}
+
 type Field {
     id: ID!
     name: String!
     type: FieldType!
+    options: [Option!]!
+}
+
+type Option {
+    id: Int!
+    label: String!
+}
+
+input InputOption {
+    id: Int!
+    label: String!
 }
 
 enum FieldType {
@@ -28,12 +40,19 @@ enum FieldType {
     id
     number
     tags
+    option
 }`;
+
+export interface Option {
+    id: number;
+    label: string;
+}
 
 export interface Field {
     id: string;
     name: string;
     type: FieldType;
+    options: Option[];
 }
 
 export interface DocumentType {
@@ -46,5 +65,6 @@ export enum FieldType {
     TEXT = "text",
     ID = "id",
     NUMBER = "number",
-    TAGS = "tags"
+    TAGS = "tags",
+    OPTION = "option"
 }

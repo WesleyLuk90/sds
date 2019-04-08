@@ -14,13 +14,15 @@ describe("Documents", () => {
         __typename: "Field",
         id: "f1",
         name: "Field 1",
-        type: FieldType.text
+        type: FieldType.text,
+        options: []
     };
     const field2: DocumentField = {
         __typename: "Field",
         id: "f2",
         name: "Field 2",
-        type: FieldType.text
+        type: FieldType.text,
+        options: []
     };
     const type: DocumentType = {
         __typename: "DocumentType",

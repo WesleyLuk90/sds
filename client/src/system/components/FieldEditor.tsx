@@ -3,6 +3,9 @@ import { DerivedIdField } from "../../components/forms/DerivedIdField";
 import { VerticalLayout } from "../../components/layout/VerticalLayout";
 import { InputField } from "../../__generated__/globalTypes";
 import { FieldTypeSelector } from "./FieldTypeSelector";
+import { Table, TableColumn } from "../../components/Table";
+import { TextInput } from "../../components/forms/TextInput";
+import { FieldOptionsEditor } from "./FieldOptionsEditor";
 
 interface Props {
     new: boolean;
@@ -31,6 +34,10 @@ export class FieldEditor extends React.Component<Props> {
                     onChange={type =>
                         this.props.onChange({ ...this.props.field, type })
                     }
+                />
+                <FieldOptionsEditor
+                    field={this.props.field}
+                    onChange={this.props.onChange}
                 />
             </VerticalLayout>
         );

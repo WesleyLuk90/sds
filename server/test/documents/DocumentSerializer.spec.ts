@@ -11,12 +11,14 @@ describe("DocumentSerializer", () => {
             {
                 id: "student-id",
                 name: "Student ID",
-                type: FieldType.ID
+                type: FieldType.ID,
+                options: []
             },
             {
                 id: "name",
                 name: "Name",
-                type: FieldType.TEXT
+                type: FieldType.TEXT,
+                options: []
             }
         ]
     };

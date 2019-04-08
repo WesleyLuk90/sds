@@ -98,11 +98,6 @@ export class DocumentTypeEditor extends React.Component<Props, State> {
                         new={this.props.new}
                     />
                     <SectionHeader>Fields</SectionHeader>
-                    <div style={{ marginBottom: theme.spacing.unit * 2 }}>
-                        <Button color="primary" onClick={() => this.onAdd()}>
-                            <AddBox /> Add Field
-                        </Button>
-                    </div>
                     {fields.map((f, i) => (
                         <ExpansionPanel
                             key={i}
@@ -125,6 +120,9 @@ export class DocumentTypeEditor extends React.Component<Props, State> {
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
                     ))}
+                    <Button color="primary" onClick={() => this.onAdd()}>
+                        <AddBox /> Add Field
+                    </Button>
                 </VerticalLayout>
             </SavePanel>
         );

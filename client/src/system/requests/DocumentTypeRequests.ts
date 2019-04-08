@@ -26,6 +26,10 @@ export const DOCUMENT_TYPE_SCHEMA = gql`
             id
             name
             type
+            options {
+                id
+                label
+            }
         }
     }
 `;

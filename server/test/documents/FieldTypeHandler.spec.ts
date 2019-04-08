@@ -6,7 +6,8 @@ describe("FieldTypeHandler", () => {
     const field: Field = {
         id: "fieldId",
         type: {} as any,
-        name: "Field"
+        name: "Field",
+        options: []
     };
 
     const handlers = Object.keys(FieldType)

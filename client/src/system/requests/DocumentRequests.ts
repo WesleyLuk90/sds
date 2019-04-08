@@ -26,6 +26,7 @@ export const DOCUMENT_SCHEMA = gql`
             id
             number
             tags
+            option
         }
     }
 `;

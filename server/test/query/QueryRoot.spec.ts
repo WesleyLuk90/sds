@@ -12,8 +12,18 @@ describeIntegration("QueryRoot", () => {
                 id: "test-type",
                 name: "Test Type",
                 fields: [
-                    { id: "name", name: "Name", type: FieldType.TEXT },
-                    { id: "test-type-id", name: "ID", type: FieldType.ID }
+                    {
+                        id: "name",
+                        name: "Name",
+                        type: FieldType.TEXT,
+                        options: []
+                    },
+                    {
+                        id: "test-type-id",
+                        name: "ID",
+                        type: FieldType.ID,
+                        options: []
+                    }
                 ]
             }
         });

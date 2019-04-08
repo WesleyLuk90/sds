@@ -2,7 +2,7 @@ import TextField from "@material-ui/core/TextField";
 import * as React from "react";
 
 export interface TextInputProps {
-    label: string;
+    label?: string;
     value: string;
     onChange: (newValue: string) => void;
     placeholder?: string;

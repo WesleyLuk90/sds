@@ -10,7 +10,8 @@ export function newValue(
             text: "",
             id: "",
             number: 0,
-            tags: []
+            tags: [],
+            option: null
         },
         values
     );

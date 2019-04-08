@@ -7,6 +7,7 @@ import { IdEditor } from "./IdEditor";
 import { Documents } from "../Documents";
 import { NumberEditor } from "./NumberEditor";
 import { TagEditor } from "./TagEditor";
+import { OptionEditor } from "./OptionEditor";
 
 interface Props {
     value?: InputDocumentValue | null;
@@ -20,7 +21,8 @@ const EDITORS: {
     id: IdEditor,
     text: TextEditor,
     number: NumberEditor,
-    tags: TagEditor
+    tags: TagEditor,
+    option: OptionEditor
 };
 
 export class DefaultFieldEditor extends React.Component<Props> {

@@ -3,6 +3,7 @@ import {
     InputDocumentType,
     InputField
 } from "../__generated__/globalTypes";
+import { DocumentTypes } from "../documents/DocumentTypes";
 
 export class DocumentTypeUpdater {
     static setNameId(
@@ -14,13 +15,7 @@ export class DocumentTypeUpdater {
     }
 
     static addField(documentType: InputDocumentType): InputDocumentType {
-        return {
-            ...documentType,
-            fields: [
-                ...documentType.fields,
-                { id: "", name: "", type: FieldType.text }
-            ]
-        };
+        return DocumentTypes.addField(documentType);
     }
 
     static updateField(
