@@ -11,7 +11,9 @@ const FIELD_TYPE_MAP: { [key in FieldType]: CollectionFieldType } = {
     text: CollectionFieldType.TEXT,
     number: CollectionFieldType.DOUBLE,
     tags: CollectionFieldType.KEYWORD,
-    option: CollectionFieldType.INTEGER
+    option: CollectionFieldType.INTEGER,
+    options: CollectionFieldType.INTEGER,
+    boolean: CollectionFieldType.BOOLEAN
 };
 
 function convertFieldType(fieldType: FieldType): CollectionFieldType {

@@ -11,7 +11,9 @@ export function newValue(
             id: "",
             number: 0,
             tags: [],
-            option: null
+            option: null,
+            options: [],
+            boolean: false
         },
         values
     );

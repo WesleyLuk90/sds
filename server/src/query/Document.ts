@@ -18,6 +18,8 @@ type DocumentValue {
     number: Float!
     tags: [String!]!
     option: Int
+    options: [Int!]!
+    boolean: Boolean
 }
 
 input InputDocumentValue {
@@ -27,6 +29,8 @@ input InputDocumentValue {
     number: Float!
     tags: [String!]!
     option: Int
+    options: [Int!]!
+    boolean: Boolean!
 }
 `;
 
@@ -43,4 +47,6 @@ export interface DocumentValue {
     number: number;
     tags: string[];
     option: number | null;
+    options: [number];
+    boolean: boolean;
 }

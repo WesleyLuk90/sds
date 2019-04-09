@@ -1,45 +1,66 @@
 import { newValue } from "../../src/documents/DefaultValue";
-import { FieldType } from "../../src/query/DocumentType";
+import { FieldType, Field, Option } from "../../src/query/DocumentType";
 import { QueryRoot } from "../../src/query/Schema";
 import { describeIntegration } from "../toolkit/describeIntegration";
+import { Document } from "../../src/query/Document";
+
+function field(id: string, type: FieldType, options: Option[] = []): Field {
+    return {
+        id,
+        name: id,
+        type,
+        options
+    };
+}
 
 describeIntegration("QueryRoot", () => {
     it("should create update and list", async () => {
         const root = await QueryRoot.create();
-
         const type = await root.createDocumentType({
             documentType: {
                 id: "test-type",
                 name: "Test Type",
                 fields: [
-                    {
-                        id: "name",
-                        name: "Name",
-                        type: FieldType.TEXT,
-                        options: []
-                    },
-                    {
-                        id: "test-type-id",
-                        name: "ID",
-                        type: FieldType.ID,
-                        options: []
-                    }
+                    field("name", FieldType.TEXT),
+                    field("some-id", FieldType.ID),
+                    field("number", FieldType.NUMBER),
+                    field("tags", FieldType.TAGS),
+                    field("option", FieldType.OPTION, [{ id: 0, label: "A" }]),
+                    field("options", FieldType.OPTIONS, [
+                        { id: 0, label: "A" }
+                    ]),
+                    field("boolean", FieldType.BOOLEAN)
                 ]
             }
         });
 
+        expect(type.fields.map(f => f.type).sort()).toEqual(
+            Object.keys(FieldType)
+                .map(k => FieldType[k as any])
+                .sort()
+        );
+
+        const document: Document = {
+            id: "",
+            type: type.id,
+            values: [
+                newValue("name", { text: "foo" }),
+                newValue("some-id", { id: "bar" }),
+                newValue("number", { number: 5 }),
+                newValue("tags", { tags: ["a"] }),
+                newValue("option", { option: 0 }),
+                newValue("options", { options: [0] }),
+                newValue("boolean", { boolean: true })
+            ]
+        };
+
         const created = await root.createDocument({
-            document: {
-                id: "",
-                type: type.id,
-                values: [
-                    newValue("name", { text: "foo" }),
-                    newValue("test-type-id", { text: "bar" })
-                ]
-            },
+            document,
             wait: true
         });
         expect(created.id).toBeTruthy();
+        document.id = created.id;
+        expect(document).toEqual(created);
 
         created.values[0] = newValue("name", { text: "foo2" });
 

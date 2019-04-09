@@ -6,25 +6,18 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 
-export class OptionEditor extends React.Component<FieldEditorProps> {
-    onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+export class OptionsEditor extends React.Component<FieldEditorProps> {
+    onChange = (e: React.ChangeEvent<{ value: string[] }>) => {
+        const selected = new Set(e.target.value);
         const newValue = this.props.field.options
             .map(o => o.id)
-            .find(id => id.toString() === e.target.value.toString());
+            .filter(o => selected.has(o.toString()));
         this.props.onChange(
             Documents.newValue(this.props.field, {
-                option: newValue
+                options: newValue
             })
         );
     };
-
-    getCurrent() {
-        if (this.props.value.option == null) {
-            return "";
-        } else {
-            return this.props.value.option.toString();
-        }
-    }
 
     render() {
         return (
@@ -32,8 +25,11 @@ export class OptionEditor extends React.Component<FieldEditorProps> {
                 <InputLabel htmlFor="age-simple">
                     {this.props.field.name}
                 </InputLabel>
-                <Select value={this.getCurrent()} onChange={this.onChange}>
-                    <MenuItem value="">Empty</MenuItem>
+                <Select
+                    value={this.props.value.options.map(o => o.toString())}
+                    onChange={this.onChange as any}
+                    multiple
+                >
                     {this.props.field.options.map(o => (
                         <MenuItem value={o.id.toString()} key={o.id}>
                             {o.label}

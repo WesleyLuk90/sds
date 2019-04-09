@@ -27,6 +27,8 @@ export class Documents {
             number: 0,
             tags: [],
             option: null,
+            options: [],
+            boolean: false,
             ...value
         };
     }

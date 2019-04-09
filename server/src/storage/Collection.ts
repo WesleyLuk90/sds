@@ -10,7 +10,8 @@ export enum CollectionFieldType {
     TEXT = "text",
     LONG = "long",
     DOUBLE = "double",
-    INTEGER = "integer"
+    INTEGER = "integer",
+    BOOLEAN = "boolean"
 }
 
 export class CollectionField {

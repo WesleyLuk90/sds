@@ -4,7 +4,6 @@ import { DocumentType } from "../requests/DocumentTypeRequests";
 import { InputDocument } from "../../__generated__/globalTypes";
 import { loader } from "../../components/Loader";
 import { DefaultPage } from "../../components/DefaultPage";
-import { Documents } from "../../documents/Documents";
 import { DefaultDocumentEditor } from "../../documents/components/DefaultDocumentEditor";
 import { DocumentRequests, Document } from "../requests/DocumentRequests";
 

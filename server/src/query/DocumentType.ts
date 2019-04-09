@@ -41,6 +41,8 @@ enum FieldType {
     number
     tags
     option
+    options
+    boolean
 }`;
 
 export interface Option {
@@ -66,5 +68,7 @@ export enum FieldType {
     ID = "id",
     NUMBER = "number",
     TAGS = "tags",
-    OPTION = "option"
+    OPTION = "option",
+    OPTIONS = "options",
+    BOOLEAN = "boolean"
 }

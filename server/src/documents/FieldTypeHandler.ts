@@ -52,6 +52,16 @@ const types: { [key in FieldType]: FieldTypeImplementation } = {
         defaultRawValue: () => null,
         toRaw: (value: DocumentValue) => value.option,
         toValue: (field, raw) => newValue(field.id, { option: raw })
+    },
+    options: {
+        defaultRawValue: () => [],
+        toRaw: (value: DocumentValue) => value.options,
+        toValue: (field, raw) => newValue(field.id, { options: raw })
+    },
+    boolean: {
+        defaultRawValue: () => false,
+        toRaw: (value: DocumentValue) => value.boolean,
+        toValue: (field, raw) => newValue(field.id, { boolean: raw })
     }
 };
 

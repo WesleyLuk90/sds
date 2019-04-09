@@ -32,7 +32,10 @@ export class FieldOptionsEditor extends React.Component<Props> {
     }
 
     render() {
-        if (this.props.field.type !== FieldType.option) {
+        if (
+            this.props.field.type !== FieldType.option &&
+            this.props.field.type !== FieldType.options
+        ) {
             return null;
         }
         return (
