@@ -19,7 +19,7 @@ type DocumentValue {
     tags: [String!]!
     option: Int
     options: [Int!]!
-    boolean: Boolean
+    boolean: Boolean!
 }
 
 input InputDocumentValue {
