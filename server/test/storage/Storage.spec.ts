@@ -8,7 +8,11 @@ import { describeIntegration } from "../toolkit/describeIntegration";
 
 describeIntegration("Storage", () => {
     const TEST_COLLECTION_TYPE: any = "test";
-    const testCollection = new Collection(TEST_COLLECTION_TYPE, "test-foo")
+    const TEST_COLLECTION_NAME = "test-storage";
+    const testCollection = new Collection(
+        TEST_COLLECTION_TYPE,
+        TEST_COLLECTION_NAME
+    )
         .addField(new CollectionField(CollectionFieldType.KEYWORD, "first"))
         .addField(new CollectionField(CollectionFieldType.KEYWORD, "second"));
     let storage: Storage;
@@ -37,7 +41,10 @@ describeIntegration("Storage", () => {
     });
 
     it("should update schema", async () => {
-        const updated = new Collection(TEST_COLLECTION_TYPE, "test-foo")
+        const updated = new Collection(
+            TEST_COLLECTION_TYPE,
+            TEST_COLLECTION_NAME
+        )
             .addField(new CollectionField(CollectionFieldType.KEYWORD, "first"))
             .addField(
                 new CollectionField(CollectionFieldType.KEYWORD, "third")
@@ -46,7 +53,8 @@ describeIntegration("Storage", () => {
 
         const updatedMappings = await storage.client.indices.getMapping({
             index: testCollection.getId(),
-            type: "_doc"
+            type: "_doc",
+            local: true
         });
         const fields =
             updatedMappings.body[testCollection.getId()].mappings._doc
