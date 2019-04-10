@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import * as React from "react";
 import { Panel } from "./Panel";
+import { ErrorDisplay } from "../ErrorDisplay";
 
 interface Props {
     dirty: boolean;
@@ -10,17 +11,21 @@ interface Props {
 
 interface State {
     saving: boolean;
+    error: Error | null;
 }
 
 export class SavePanel extends React.Component<Props, State> {
     state: State = {
-        saving: false
+        saving: false,
+        error: null
     };
 
     onSave = async () => {
         try {
-            this.setState({ saving: true });
+            this.setState({ saving: true, error: null });
             await this.props.onSave();
+        } catch (e) {
+            this.setState({ error: e });
         } finally {
             this.setState({ saving: false });
         }
@@ -33,6 +38,13 @@ export class SavePanel extends React.Component<Props, State> {
         return null;
     }
 
+    renderError() {
+        if (this.state.error == null) {
+            return null;
+        }
+        return <ErrorDisplay error={this.state.error} />;
+    }
+
     renderFooter() {
         return (
             <div
@@ -42,6 +54,7 @@ export class SavePanel extends React.Component<Props, State> {
                     alignItems: "center"
                 }}
             >
+                {this.renderError()}
                 {this.renderSave()}
                 <Button
                     onClick={this.onSave}

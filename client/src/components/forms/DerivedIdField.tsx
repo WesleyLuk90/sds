@@ -50,6 +50,17 @@ export class DerivedIdField extends React.Component<Props, State> {
         this.props.onChange(this.props.value, e.target.value);
     };
 
+    toggleAutomatic = () => {
+        let auto = !this.state.auto;
+        this.setState({ auto });
+        if (auto) {
+            const derived = this.deriveValue(this.props.value);
+            if (derived !== this.props.derivedValue) {
+                this.props.onChange(this.props.value, derived);
+            }
+        }
+    };
+
     renderIdField() {
         if (this.props.new) {
             return (
@@ -63,9 +74,7 @@ export class DerivedIdField extends React.Component<Props, State> {
                         control={
                             <Switch
                                 checked={this.state.auto}
-                                onChange={() =>
-                                    this.setState({ auto: !this.state.auto })
-                                }
+                                onChange={this.toggleAutomatic}
                             />
                         }
                         label="Automatic"

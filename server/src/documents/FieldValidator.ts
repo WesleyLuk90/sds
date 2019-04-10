@@ -6,8 +6,11 @@ export class FieldValidator {
     }
 
     static validateId(id: string) {
+        if (id === "") {
+            throw new Error("ID must not be empty");
+        }
         if (!FieldValidator.validId(id)) {
-            throw new Error(`Invalid id "${id}"`);
+            throw new Error(`Invalid ID '${id}'`);
         }
     }
 }
