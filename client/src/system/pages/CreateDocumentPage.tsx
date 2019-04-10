@@ -1,19 +1,15 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
-import {
-    DocumentTypeRequests,
-    DocumentType
-} from "../requests/DocumentTypeRequests";
-import { InputDocument } from "../../__generated__/globalTypes";
-import { loader } from "../../components/Loader";
+import { DataLoader } from "../../components/DataLoader";
 import { DefaultPage } from "../../components/DefaultPage";
-import { Documents } from "../../documents/Documents";
 import { DefaultDocumentEditor } from "../../documents/components/DefaultDocumentEditor";
+import { Documents } from "../../documents/Documents";
+import { InputDocument } from "../../__generated__/globalTypes";
 import { DocumentRequests } from "../requests/DocumentRequests";
-
-interface State {
-    type: DocumentType | null;
-}
+import {
+    DocumentType,
+    DocumentTypeRequests
+} from "../requests/DocumentTypeRequests";
 
 class CreateDocumentComponent extends React.Component<
     { type: DocumentType },
@@ -42,21 +38,20 @@ class CreateDocumentComponent extends React.Component<
 }
 
 export class CreateDocumentPage extends React.Component<
-    RouteComponentProps<{ id: string }>,
-    State
+    RouteComponentProps<{ id: string }>
 > {
-    state: State = { type: null };
-
-    async componentDidMount() {
-        const type = await DocumentTypeRequests.get(this.props.match.params.id);
-        this.setState({ type });
-    }
-
     render() {
-        return loader(this.state.type, type => (
-            <DefaultPage title={`New ${type.name}`}>
-                <CreateDocumentComponent type={type} />
-            </DefaultPage>
-        ));
+        return (
+            <DataLoader
+                load={() =>
+                    DocumentTypeRequests.get(this.props.match.params.id)
+                }
+                render={type => (
+                    <DefaultPage title={`New ${type.name}`}>
+                        <CreateDocumentComponent type={type} />
+                    </DefaultPage>
+                )}
+            />
+        );
     }
 }

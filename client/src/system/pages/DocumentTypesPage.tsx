@@ -4,18 +4,14 @@ import Edit from "@material-ui/icons/Edit";
 import * as React from "react";
 import { AppLink } from "../../app/AppLink";
 import { Actions } from "../../components/Actions";
+import { DataLoader } from "../../components/DataLoader";
 import { DefaultPage } from "../../components/DefaultPage";
-import { loader } from "../../components/Loader";
 import { TablePanel } from "../../components/panels/TablePanel";
 import { Table, TableColumn } from "../../components/Table";
 import {
     DocumentType,
     DocumentTypeRequests
 } from "../requests/DocumentTypeRequests";
-
-interface State {
-    documentTypes: DocumentType[] | null;
-}
 
 const COLUMNS = [
     TableColumn.create("name", "Name", (r: DocumentType) => (
@@ -37,15 +33,7 @@ const COLUMNS = [
     ))
 ];
 
-export class DocumentTypesPage extends React.Component<{}, State> {
-    state: State = {
-        documentTypes: null
-    };
-
-    async componentDidMount() {
-        this.setState({ documentTypes: await DocumentTypeRequests.list() });
-    }
-
+export class DocumentTypesPage extends React.Component {
     renderActions() {
         return (
             <Actions
@@ -66,15 +54,18 @@ export class DocumentTypesPage extends React.Component<{}, State> {
     render() {
         return (
             <DefaultPage title="Document Types">
-                {loader(this.state.documentTypes, documentTypes => (
-                    <TablePanel header={this.renderActions()}>
-                        <Table
-                            rows={documentTypes}
-                            rowKey={t => t.id}
-                            columns={COLUMNS}
-                        />
-                    </TablePanel>
-                ))}
+                <DataLoader
+                    load={() => DocumentTypeRequests.list()}
+                    render={documentTypes => (
+                        <TablePanel header={this.renderActions()}>
+                            <Table
+                                rows={documentTypes}
+                                rowKey={t => t.id}
+                                columns={COLUMNS}
+                            />
+                        </TablePanel>
+                    )}
+                />
             </DefaultPage>
         );
     }

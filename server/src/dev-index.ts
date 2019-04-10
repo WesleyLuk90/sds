@@ -5,7 +5,8 @@ import { Server } from "./http/Server";
 
 async function main() {
     const server = await Server.create();
-    if (!process.argv.includes("--no-webpack")) {
+    const withUI = !process.argv.includes("--no-webpack");
+    if (withUI) {
         const compiler = webpack(require("../../client/webpack.dev.config.js"));
         server.addMiddleware(
             middleware(compiler, {
@@ -15,7 +16,9 @@ async function main() {
         server.addMiddleware(hotMiddleware(compiler));
     }
     await server.start();
-    require("open")("http://localhost:3000");
+    if (withUI) {
+        require("open")("http://localhost:3000");
+    }
 }
 
 main().catch(e => {

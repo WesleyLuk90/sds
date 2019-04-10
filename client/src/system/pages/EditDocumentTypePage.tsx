@@ -32,14 +32,12 @@ export class EditDocumentTypePage extends React.Component<
         return (
             <DefaultPage title="Update Document Type">
                 {loader(this.state.documentType, documentType => (
-                    <div>
-                        <DocumentTypeEditor
-                            new={false}
-                            documentType={documentType}
-                            onChange={d => this.setState({ documentType: d })}
-                            onSave={() => this.onUpdate(documentType)}
-                        />
-                    </div>
+                    <DocumentTypeEditor
+                        new={false}
+                        documentType={documentType}
+                        onChange={d => this.setState({ documentType: d })}
+                        onSave={() => this.onUpdate(documentType)}
+                    />
                 ))}
             </DefaultPage>
         );

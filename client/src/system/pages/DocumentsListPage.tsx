@@ -1,20 +1,16 @@
-import * as React from "react";
-import { DefaultPage } from "../../components/DefaultPage";
-import { RouteComponentProps } from "react-router";
-import { Document, DocumentRequests } from "../requests/DocumentRequests";
-import { TablePanel } from "../../components/panels/TablePanel";
-import { loader } from "../../components/Loader";
-import { DocumentType } from "../requests/DocumentTypeRequests";
-import { Table, TableColumn } from "../../components/Table";
-import { AppLink } from "../../app/AppLink";
-import AddBox from "@material-ui/icons/AddBox";
-import { Actions } from "../../components/Actions";
 import IconButton from "@material-ui/core/IconButton";
+import AddBox from "@material-ui/icons/AddBox";
 import Edit from "@material-ui/icons/Edit";
-
-interface State {
-    docs: { documents: Document[]; type: DocumentType } | null;
-}
+import * as React from "react";
+import { RouteComponentProps } from "react-router";
+import { AppLink } from "../../app/AppLink";
+import { Actions } from "../../components/Actions";
+import { DataLoader } from "../../components/DataLoader";
+import { DefaultPage } from "../../components/DefaultPage";
+import { TablePanel } from "../../components/panels/TablePanel";
+import { Table, TableColumn } from "../../components/Table";
+import { Document, DocumentRequests } from "../requests/DocumentRequests";
+import { DocumentType } from "../requests/DocumentTypeRequests";
 
 const COLUMNS: TableColumn<Document>[] = [
     new TableColumn("id", "ID", d => d.id),
@@ -28,18 +24,8 @@ const COLUMNS: TableColumn<Document>[] = [
 ];
 
 export class DocumentsListPage extends React.Component<
-    RouteComponentProps<{ id: string }>,
-    State
+    RouteComponentProps<{ id: string }>
 > {
-    state: State = {
-        docs: null
-    };
-
-    async componentDidMount() {
-        const docs = await DocumentRequests.list(this.props.match.params.id);
-        this.setState({ docs });
-    }
-
     renderHeader(type: DocumentType) {
         return (
             <Actions
@@ -58,16 +44,21 @@ export class DocumentsListPage extends React.Component<
     }
 
     render() {
-        return loader(this.state.docs, ({ documents, type }) => (
-            <DefaultPage title={type.name}>
-                <TablePanel header={this.renderHeader(type)}>
-                    <Table
-                        rowKey={d => d.id}
-                        rows={documents}
-                        columns={COLUMNS}
-                    />
-                </TablePanel>
-            </DefaultPage>
-        ));
+        return (
+            <DataLoader
+                load={() => DocumentRequests.list(this.props.match.params.id)}
+                render={({ documents, type }) => (
+                    <DefaultPage title={type.name}>
+                        <TablePanel header={this.renderHeader(type)}>
+                            <Table
+                                rowKey={d => d.id}
+                                rows={documents}
+                                columns={COLUMNS}
+                            />
+                        </TablePanel>
+                    </DefaultPage>
+                )}
+            />
+        );
     }
 }

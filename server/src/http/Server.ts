@@ -21,11 +21,16 @@ export class Server {
                 rootValue: queryRoot,
                 graphiql: true,
                 formatError: error => {
-                    console.error(error);
+                    console.error({
+                        message: error.message,
+                        locations: error.locations,
+                        path: error.path,
+                        stack: error.stack ? error.stack.split("\n") : [],
+                        originalError: error.originalError
+                    });
                     return {
                         message: error.message,
                         locations: error.locations,
-                        stack: error.stack ? error.stack.split("\n") : [],
                         path: error.path
                     };
                 }

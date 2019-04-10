@@ -1,11 +1,11 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
-import { DocumentType } from "../requests/DocumentTypeRequests";
-import { InputDocument } from "../../__generated__/globalTypes";
-import { loader } from "../../components/Loader";
+import { DataLoader } from "../../components/DataLoader";
 import { DefaultPage } from "../../components/DefaultPage";
 import { DefaultDocumentEditor } from "../../documents/components/DefaultDocumentEditor";
-import { DocumentRequests, Document } from "../requests/DocumentRequests";
+import { InputDocument } from "../../__generated__/globalTypes";
+import { Document, DocumentRequests } from "../requests/DocumentRequests";
+import { DocumentType } from "../requests/DocumentTypeRequests";
 
 class EditDocumentComponent extends React.Component<
     { type: DocumentType; document: Document },
@@ -33,35 +33,27 @@ class EditDocumentComponent extends React.Component<
     }
 }
 
-interface State {
-    info: {
-        document: Document;
-        type: DocumentType;
-    } | null;
-}
-
 export class EditDocumentPage extends React.Component<
-    RouteComponentProps<{ type: string; id: string }>,
-    State
+    RouteComponentProps<{ type: string; id: string }>
 > {
-    state: State = { info: null };
-
-    async componentDidMount() {
-        const info = await DocumentRequests.get(
-            this.props.match.params.type,
-            this.props.match.params.id
-        );
-        this.setState({ info });
-    }
-
     render() {
-        return loader(this.state.info, info => (
-            <DefaultPage title={`Edit ${info.type.name}`}>
-                <EditDocumentComponent
-                    type={info.type}
-                    document={info.document}
-                />
-            </DefaultPage>
-        ));
+        return (
+            <DataLoader
+                load={() =>
+                    DocumentRequests.get(
+                        this.props.match.params.type,
+                        this.props.match.params.id
+                    )
+                }
+                render={({ type, document }) => (
+                    <DefaultPage title={`Edit ${type.name}`}>
+                        <EditDocumentComponent
+                            type={type}
+                            document={document}
+                        />
+                    </DefaultPage>
+                )}
+            />
+        );
     }
 }

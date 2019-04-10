@@ -1,6 +1,7 @@
 import { Client } from "@elastic/elasticsearch";
 import { Collection } from "./Collection";
 import { checkNotNull } from "../utils/checkNotNull";
+import { ResponseError } from "@elastic/elasticsearch/lib/errors";
 
 export interface RawDocument {
     id?: string;
@@ -94,12 +95,21 @@ export class Storage {
         collection: Collection,
         id: string
     ): Promise<T> {
-        const response = await this.client.get({
-            index: collection.getId(),
-            type: "_doc",
-            id: id
-        });
-        return this.fromResponse<T>(response.body);
+        try {
+            const response = await this.client.get({
+                index: collection.getId(),
+                type: "_doc",
+                id: id
+            });
+            return this.fromResponse<T>(response.body);
+        } catch (e) {
+            if (e instanceof ResponseError) {
+                if (e.meta.statusCode === 404) {
+                    e.message = `Failed to find object with id='${id}'`;
+                }
+            }
+            throw e;
+        }
     }
 
     async update(
