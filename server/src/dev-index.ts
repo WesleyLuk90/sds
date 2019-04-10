@@ -14,7 +14,8 @@ async function main() {
         );
         server.addMiddleware(hotMiddleware(compiler));
     }
-    server.start();
+    await server.start();
+    require("open")("http://localhost:3000");
 }
 
 main().catch(e => {

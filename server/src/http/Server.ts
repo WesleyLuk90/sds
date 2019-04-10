@@ -38,8 +38,11 @@ export class Server {
     }
 
     async start() {
-        this.app.listen(this.port, () =>
-            console.log(`Example app listening on port ${this.port}!`)
-        );
+        return new Promise(resolve => {
+            this.app.listen(this.port, () => {
+                console.log(`Example app listening on port ${this.port}!`);
+                resolve();
+            });
+        });
     }
 }
