@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Route, RouteComponentProps, Switch } from "react-router";
-import { DocumentsListPage } from "./pages/DocumentsListPage";
 import { CreateDocumentPage } from "./pages/CreateDocumentPage";
+import { DocumentsListPage } from "./pages/DocumentsListPage";
 import { EditDocumentPage } from "./pages/EditDocumentPage";
 
 export class DocumentsRoutes extends React.Component<RouteComponentProps<any>> {
