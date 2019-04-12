@@ -1,5 +1,5 @@
-import { DocumentValue } from "../query/Document";
-import { Field, FieldType } from "../query/DocumentType";
+import { DocumentValue } from "../models/Document";
+import { Field, FieldType } from "../models/DocumentType";
 import { newValue } from "./DefaultValue";
 
 interface FieldTypeImplementation {

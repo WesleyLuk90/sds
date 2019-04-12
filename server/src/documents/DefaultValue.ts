@@ -1,4 +1,4 @@
-import { DocumentValue } from "../query/Document";
+import { DocumentValue } from "../models/Document";
 
 export function newValue(
     fieldId: string,

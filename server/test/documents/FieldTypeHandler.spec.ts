@@ -1,6 +1,6 @@
 import { newValue } from "../../src/documents/DefaultValue";
 import { forType } from "../../src/documents/FieldTypeHandler";
-import { Field, FieldType } from "../../src/query/DocumentType";
+import { Field, FieldType } from "../../src/models/DocumentType";
 
 describe("FieldTypeHandler", () => {
     const field: Field = {

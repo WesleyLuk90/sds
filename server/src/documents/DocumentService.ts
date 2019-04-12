@@ -1,4 +1,4 @@
-import { Document } from "../query/Document";
+import { Document } from "../models/Document";
 import { CollectionService } from "../storage/CollectionService";
 import { Storage } from "../storage/Storage";
 import { DocumentSerializer } from "./DocumentSerializer";

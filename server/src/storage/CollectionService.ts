@@ -1,4 +1,4 @@
-import { DocumentType, Field, FieldType } from "../query/DocumentType";
+import { DocumentType, Field, FieldType } from "../models/DocumentType";
 import {
     Collection,
     CollectionField,

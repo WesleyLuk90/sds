@@ -7,8 +7,8 @@ import {
 } from "../storage/CollectionManager";
 import { CollectionService } from "../storage/CollectionService";
 import { Storage } from "../storage/Storage";
-import { Document, DocumentSchema } from "./Document";
-import { DocumentType, DocumentTypeSchema } from "./DocumentType";
+import { Document, DocumentSchema } from "../models/Document";
+import { DocumentType, DocumentTypeSchema } from "../models/DocumentType";
 
 const QuerySchema = `
 type Query {

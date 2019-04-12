@@ -1,7 +1,7 @@
 import { newValue } from "../../src/documents/DefaultValue";
 import { DocumentSerializer } from "../../src/documents/DocumentSerializer";
-import { Document } from "../../src/query/Document";
-import { DocumentType, FieldType } from "../../src/query/DocumentType";
+import { Document } from "../../src/models/Document";
+import { DocumentType, FieldType } from "../../src/models/DocumentType";
 
 describe("DocumentSerializer", () => {
     const documentType: DocumentType = {

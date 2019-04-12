@@ -1,4 +1,4 @@
-import { DocumentType } from "../query/DocumentType";
+import { DocumentType } from "../models/DocumentType";
 import {
     DOCUMENT_TYPES_COLLECTION,
     CollectionManager

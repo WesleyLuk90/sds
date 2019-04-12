@@ -1,8 +1,8 @@
 import { newValue } from "../../src/documents/DefaultValue";
-import { FieldType, Field, Option } from "../../src/query/DocumentType";
+import { FieldType, Field, Option } from "../../src/models/DocumentType";
 import { QueryRoot } from "../../src/query/Schema";
 import { describeIntegration } from "../toolkit/describeIntegration";
-import { Document } from "../../src/query/Document";
+import { Document } from "../../src/models/Document";
 
 function field(id: string, type: FieldType, options: Option[] = []): Field {
     return {

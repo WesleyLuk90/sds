@@ -1,5 +1,5 @@
-import { Document } from "../query/Document";
-import { DocumentType } from "../query/DocumentType";
+import { Document } from "../models/Document";
+import { DocumentType } from "../models/DocumentType";
 import { RawDocument } from "../storage/Storage";
 import { forType } from "./FieldTypeHandler";
 import { checkNotNull } from "../utils/checkNotNull";
