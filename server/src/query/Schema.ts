@@ -9,6 +9,8 @@ import { CollectionService } from "../storage/CollectionService";
 import { Storage } from "../storage/Storage";
 import { Document, DocumentSchema } from "../models/Document";
 import { DocumentType, DocumentTypeSchema } from "../models/DocumentType";
+import { PanelSchema, Panel } from "../models/Panel";
+import { PanelService } from "../pages/PanelService";
 
 const QuerySchema = `
 type Query {
@@ -30,7 +32,8 @@ export const RawSchema = [
     QuerySchema,
     MutationSchema,
     DocumentTypeSchema,
-    DocumentSchema
+    DocumentSchema,
+    PanelSchema
 ].join("\n");
 
 export const Schema = buildSchema(RawSchema);
@@ -45,12 +48,14 @@ export class QueryRoot {
             typeService,
             new CollectionService()
         );
-        return new QueryRoot(typeService, documentService);
+        const panelService = await PanelService.create(storage);
+        return new QueryRoot(typeService, documentService, panelService);
     }
 
     constructor(
         private documentTypeService: DocumentTypeService,
-        private documentService: DocumentService
+        private documentService: DocumentService,
+        private panelService: PanelService
     ) {}
 
     async document(args: { type: string; id: string }): Promise<Document> {
