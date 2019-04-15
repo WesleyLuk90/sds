@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import { DocumentsRoutes } from "../system/DocumentsRoutes";
 import { DocumentTypesRoutes } from "../system/DocumentTypesRoutes";
 import { HomePage } from "./HomePage";
+import { PageRoutes } from "../system/PageRoutes";
 
 export class Routes extends React.Component {
     render() {
@@ -13,6 +14,7 @@ export class Routes extends React.Component {
                     component={DocumentTypesRoutes}
                 />
                 <Route path="/system/documents" component={DocumentsRoutes} />
+                <Route path="/system/pages" component={PageRoutes} />
                 <Route path="/" component={HomePage} />
             </Switch>
         );

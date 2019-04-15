@@ -2,13 +2,13 @@ export const PanelSchema = `
 type Panel {
     id: ID!
     name: String!
-    values: [Control!]!
+    controls: [Control!]!
 }
 
 input InputPanel {
     id: ID!
     type: String!
-    values: [InputControl!]!
+    controls: [InputControl!]!
 }
 
 type Control {

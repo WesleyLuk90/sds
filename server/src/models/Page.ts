@@ -1,34 +1,19 @@
-export const PanelSchema = `
-type Panel {
+import { Panel } from "./Panel";
+
+export const PageSchema = `
+type Page {
     id: ID!
-    name: String!
-    values: [Control!]!
+    panels: [Panel!]!
 }
 
-input InputPanel {
+input InputPage {
     id: ID!
-    type: String!
-    values: [InputControl!]!
+    panels: [InputPanel!]!
 }
 
-type Control {
-    type: String!
-    fieldId: String!
-}
-
-input InputControl {
-    type: String!
-    fieldId: String!
-}
 `;
 
-export interface Panel {
+export interface Page {
     id: string;
-    name: string;
-    controls: Control[];
-}
-
-export interface Control {
-    type: string;
-    field: string;
+    panels: Panel[];
 }

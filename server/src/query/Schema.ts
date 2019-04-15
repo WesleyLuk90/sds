@@ -1,16 +1,14 @@
 import { buildSchema } from "graphql";
 import { DocumentService } from "../documents/DocumentService";
 import DocumentTypeService from "../documents/DocumentTypeService";
-import {
-    CollectionManager,
-    DOCUMENT_TYPES_COLLECTION
-} from "../storage/CollectionManager";
-import { CollectionService } from "../storage/CollectionService";
-import { Storage } from "../storage/Storage";
 import { Document, DocumentSchema } from "../models/Document";
 import { DocumentType, DocumentTypeSchema } from "../models/DocumentType";
-import { PanelSchema, Panel } from "../models/Panel";
+import { PageSchema } from "../models/Page";
+import { PanelSchema } from "../models/Panel";
 import { PanelService } from "../pages/PanelService";
+import { CollectionManager } from "../storage/CollectionManager";
+import { CollectionService } from "../storage/CollectionService";
+import { Storage } from "../storage/Storage";
 
 const QuerySchema = `
 type Query {
@@ -18,6 +16,8 @@ type Query {
     documents(type: String!): [Document!]!
     documentTypes: [DocumentType!]!
     documentType(id: String!): DocumentType!
+    pages: Page!
+    page(id: String!): Page!
 }`;
 
 const MutationSchema = `
@@ -26,6 +26,8 @@ type Mutation {
     updateDocument(document: InputDocument, wait: Boolean): Document!
     createDocumentType(documentType: InputDocumentType): DocumentType!
     updateDocumentType(documentType: InputDocumentType): DocumentType!
+    createPage(page: InputPage!): Page!
+    updatePage(page: InputPage!): Page!
 }`;
 
 export const RawSchema = [
@@ -33,7 +35,8 @@ export const RawSchema = [
     MutationSchema,
     DocumentTypeSchema,
     DocumentSchema,
-    PanelSchema
+    PanelSchema,
+    PageSchema
 ].join("\n");
 
 export const Schema = buildSchema(RawSchema);
